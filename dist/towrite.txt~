@@ -1,0 +1,5 @@
+insert into CUSTOMER values('99968', 'Guest', 'Cash')
+insert into CONDUCTS values('99968', '99968')
+insert into CONTAINS values('11111', '99968', '1', '0')
+insert into CONTAINS values('11112', '99968', '5', '0')
+insert into TRANSACTION values('99968', SYSDATE, 15.77, 0.79, 16.56)
