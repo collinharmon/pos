@@ -1,6 +1,5 @@
 ##Last Updated: 4 April 2016
-
-WhatIsThePointOfSales (WPS):
+##WhatIsThePointOfSales (WPS)
 
 Welcome to the WPS package. All text in the readme is critical to running the supplied package, please be sure to read it prior to testing, as testing will fail without proper system understanding. 
 
