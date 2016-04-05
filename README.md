@@ -1,4 +1,4 @@
-***Last Updated: 4 April 2016
+##Last Updated: 4 April 2016
 
 WhatIsThePointOfSales (WPS):
 
