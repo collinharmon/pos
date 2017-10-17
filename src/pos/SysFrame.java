@@ -76,7 +76,7 @@ public class SysFrame extends javax.swing.JFrame {
         });
 
         Account.setText("Account");
-        Return.addActionListener(new java.awt.event.ActionListener() {
+        Account.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AccountActionPerformed(evt);
             }
