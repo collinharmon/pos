@@ -21,14 +21,14 @@ public class PointofSale {
         Backround bg = new Backround();
         Class.forName("oracle.jdbc.driver.OracleDriver");
         try {
-
+            throw new SQLException();
             //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.  
-            con = DriverManager.getConnection();
+            //con = DriverManager.getConnection();
             
-            Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("select * from Customer");
-            system = new Sys(con);
-            doLogin();
+            //Statement s = con.createStatement();
+            //ResultSet result = s.executeQuery("select * from Customer");
+            //system = new Sys(con);
+            //doLogin();
         } catch (SQLException ex) {
             offlinesystem = new OSys();
             Login l = new Login(offlinesystem);
