@@ -19,17 +19,17 @@ public class PointofSale {
 
     public static void main(String[] args) throws ClassNotFoundException {
         Backround bg = new Backround();
-        Class.forName("oracle.jdbc.driver.OracleDriver");
+        Class.forName("com.mysql.jdbc.Driver");
         try {
             //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.
-            //con = DriverManager.getConnection();
-
-            
-            //Statement s = con.createStatement();
-            //ResultSet result = s.executeQuery("select * from Customer");
+            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=collinharmon", "user_name_here", "password_here");
+            Statement s2 = con.createStatement();
+            ResultSet result2 = s2.executeQuery("select * from pos.game");
+            while(result2.next()) System.out.println(result2.getNString(1));
             system = new Sys(con);
             doLogin();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("Connection Error");
             offlinesystem = new OSys();
             Login l = new Login(offlinesystem);
         }
