@@ -48,6 +48,7 @@ public class SysFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Return = new javax.swing.JButton();
         AddItem = new javax.swing.JButton();
+        Account = new javax.swing.JButton();
         RemoveItem = new javax.swing.JButton();
         Checkout = new javax.swing.JButton();
         Logout = new javax.swing.JButton();
@@ -71,6 +72,13 @@ public class SysFrame extends javax.swing.JFrame {
         Return.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReturnActionPerformed(evt);
+            }
+        });
+
+        Account.setText("Account");
+        Return.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccountActionPerformed(evt);
             }
         });
 
@@ -136,6 +144,7 @@ public class SysFrame extends javax.swing.JFrame {
                             .addComponent(Checkout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(RemoveItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AddItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Account, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -156,6 +165,8 @@ public class SysFrame extends javax.swing.JFrame {
                         .addComponent(Checkout, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Return, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -215,6 +226,9 @@ public class SysFrame extends javax.swing.JFrame {
         NewReturn nr = new NewReturn(this, system, con);
     }//GEN-LAST:event_ReturnActionPerformed
 
+    private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
+    }//GEN-LAST:event_ReturnActionPerformed
+
     public void setOutputText(String s) {
         jTextArea1.setText(s);
     }
@@ -222,6 +236,7 @@ public class SysFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddItem;
+    private javax.swing.JButton Account;
     private javax.swing.JButton Checkout;
     private javax.swing.JButton Logout;
     private javax.swing.JButton RemoveItem;
