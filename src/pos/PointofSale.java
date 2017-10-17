@@ -21,15 +21,15 @@ public class PointofSale {
         Backround bg = new Backround();
         Class.forName("oracle.jdbc.driver.OracleDriver");
         try {
-            throw new SQLException();
-            //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.  
+            //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.
             //con = DriverManager.getConnection();
+
             
             //Statement s = con.createStatement();
             //ResultSet result = s.executeQuery("select * from Customer");
-            //system = new Sys(con);
-            //doLogin();
-        } catch (SQLException ex) {
+            system = new Sys(con);
+            doLogin();
+        } catch (Exception e) {
             offlinesystem = new OSys();
             Login l = new Login(offlinesystem);
         }
@@ -40,7 +40,7 @@ public class PointofSale {
     }
 
     public static void doWork() {
-        system.updateDatabase();
+        //system.updateDatabase();
         SysFrame sf = new SysFrame(con, system);
     }
 
@@ -49,7 +49,7 @@ public class PointofSale {
     }
 
     static void doAdminWork() {
-        system.updateDatabase();
+        //system.updateDatabase();
         AdminFrame af = new AdminFrame(con, system);
     }
 

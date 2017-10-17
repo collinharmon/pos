@@ -1,3 +1,33 @@
+**Updated 10/16/17**
+Compilation Notes:
+Make sure...
+...the \src and the \test folders are in your project's root folder. If not you will get errors in your
+packages/package imports
+...your project has a path tot he \dist folder. Or else your compiler may not know how to resolve class "AbsoluteLayout"
+...your project has a path to JUnit or else the compiler will not know how to resolve class "JUnit"
+
+
+In my experience IntelliJ was unable to resolve either "AbsoluteLayout" or "JUnit" and for eclipse it only had issues
+with JUnit. Eclipse shouldn't have this issue anymore since I placed a JUnit jar in the \dist\lib folder. I guess
+IntelliJ has trouble resolving the \dist\lib for whatever reason.
+
+To add a class path for IntelliJ go to file->Project Structure->Modules->Dependencies-> "+" (plus sign is on the right
+side of GUI) then click on "jars or directories". Then locate \p_o_s\dist\lib where you will see AbsoluteLayout.jar and
+junit-4.10.jar (as well as ojdbc6.jar). Link this directory.
+
+To add JUnit to eclipse (if necessary) right click on your project->Build Path->Add Libraries and JUnit should appear
+as an option.
+
+Then it should compile. Note the changes I made in PointofSales.java. Namely, the main function, doWork(), and doAdminWork().
+Also note the changes in Sys.java, inside the function 'public int login(String username, String password)'.
+login() is hardcoded as of now to put you into Manager mode. When presented the login screen just hit "Enter".
+You can play around with the GUI and see the features, however, it doesn't actually do anything because we don't have a
+database connected. But it should give you a feel for the Manager's UI and capabilities. You can enter Employee mode in
+two ways. From the Manager's GUI hit "User Screen" and the employee's UI will be loaded. Or modify the login() function
+to return 1.
+
+This should get you started. I do recommend reading the rest of this README as well as the Developer and User manuals.
+
 WhatIsThePointOfSales (WPS):
 
 Welcome to the WPS package. All text in the readme is critical to running the supplied package, please be sure to read it prior to testing, as testing will fail without proper system understanding. 

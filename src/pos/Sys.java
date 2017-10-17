@@ -35,7 +35,8 @@ public class Sys {
     }
 
     public int login(String username, String password) {
-        try {
+        return 2;
+        /*try {
             Statement smt = con.createStatement();
             String query = "select * from EMPLOYEE where UNAME = '" + username
                     + "' and PWORD = '" + password + "'";
@@ -51,7 +52,7 @@ public class Sys {
         } catch (SQLException sqe) {
             System.err.println("Unable to find requested entries");
             return 0;
-        }
+        }*/
     }
 
     public void logout() {
