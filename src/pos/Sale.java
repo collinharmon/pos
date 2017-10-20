@@ -51,11 +51,9 @@ public class Sale {
     }
 
     public void commitSale(String ccn) {
-        String tid = null;
-        String retid = null;
-        try {
+        /*try {
             Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("select mtid from dual");
+            ResultSet result = s.executeQuery("");
             result.next();
             tid = result.getNString(1);
         } catch (SQLException sqe) {
@@ -81,26 +79,40 @@ public class Sale {
             s.executeUpdate("insert into CONDUCTS values('" + cid + "', '" + tid + "')");
         } catch (SQLException sqe) {
             System.err.println("Unable to insert into CONDUCTS");
+        }*/
+        int newoid =0;
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet result = stmt.executeQuery("select oid from pos.orders order by oid desc limit 1");
+            result.next();
+            newoid = result.getInt(1) + 1;
+            stmt.executeUpdate("insert into pos.orders (oid) values (" + newoid + ")");
         }
+        catch(SQLException sqe){
+            System.err.println("Unable to insert into orders");
+        }
+        //s.executeUpdate("insert into orders values('" + tid + "', SYSDATE, " + getSubtotal() + ", " + getTax() + ", " + getTotal() + ")");
         Node temp = l.head;
         try {
             while (temp != null) {
                 Statement s = con.createStatement();
                 int num = 0;
-                if (temp.rental) {
+                /*if (temp.rental) {
                     num = 1;
                     retid = tid;
                     retid = retid.concat("010");
                     s.executeUpdate("insert into RETTRANSACTION values ('" + retid + "', SYSDATE+30)");
-                }
-                s.executeUpdate("insert into CONTAINS values('" + temp.current.getID() + "', '" + tid + "', '" + temp.quant + "', '" + num + "')");
+                }*/
+
+                s.executeUpdate("update pos.games set quantity = quantity - " + temp.getQuant() + " where sku =  " + temp.getItem().getID() );
+                s.executeUpdate("insert into pos.order_items (quantity, price, sku, oid) values (" + temp.getQuant() + ", " + temp.getItem().getPrice().getValue() + ", " + temp.getItem().getID() + ", " + newoid + ")");
                 temp = temp.next;
             }
         } catch (SQLException sqe) {
-            System.err.println("Unable to insert into CONTAINS or RETTRANSACTION");
+            System.err.println("Unable to update or insert");
             System.err.println(sqe.getMessage());
         }
-        try {
+        /*try {
             Statement s = con.createStatement();
             s.executeUpdate("insert into TRANSACTION values('" + tid + "', SYSDATE, " + getSubtotal() + ", " + getTax() + ", " + getTotal() + ")");
         } catch (SQLException sqe) {
@@ -112,7 +124,7 @@ public class Sale {
             c.add(Calendar.DATE, 30);
             java.util.Date d = c.getTime();
             System.out.println("Your RETURN ID: " + retid + ".\nItems are due back on: " + d.getDate() + "-" + (d.getMonth() + 1) + "-15");
-        }
+        }*/
     }
 
     public boolean checknumber(String cnum) {
@@ -278,6 +290,7 @@ public class Sale {
         private void setQuant(int q) {
             this.quant += q;
         }
+        public int getQuant(){return quant;}
 
         boolean isRental() {
             return rental;

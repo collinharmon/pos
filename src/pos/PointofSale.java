@@ -22,13 +22,13 @@ public class PointofSale {
         Class.forName("com.mysql.jdbc.Driver");
         try {
             //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.
-            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=collinharmon", "user_name_here", "password_here");
-            Statement s2 = con.createStatement();
+            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=pos_team", "pos_team", "plasticbag22");
+            /*(Statement s2 = con.createStatement();
             ResultSet result2 = s2.executeQuery("select * from pos.game");
-            while(result2.next()) System.out.println(result2.getNString(1));
+            while(result2.next()) System.out.println(result2.getNString(1));*/
             system = new Sys(con);
             doLogin();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Connection Error");
             offlinesystem = new OSys();
             Login l = new Login(offlinesystem);

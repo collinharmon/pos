@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+/*Item tailored 1:08 AM 10/20*/
 public class Item {
 
     PrintStream ps;
@@ -28,12 +28,12 @@ public class Item {
         try {
             this.con = con;
             Statement s = this.con.createStatement();
-            String query = "select * from ITEM where pid = '" + id + "'";
+            String query = "select * from pos.games where sku = " + id + "";
             ResultSet res = s.executeQuery(query);
             this.id = id;
             if (res.next()) {
-                name = res.getNString("name");
-                price = new Money(Double.parseDouble(res.getNString("price")));
+                name = res.getString("name");
+                price = new Money(res.getDouble("price"));
             }
         } catch (SQLException sqe) {
             System.err.println("Unable to find item");
