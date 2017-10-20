@@ -51,35 +51,6 @@ public class Sale {
     }
 
     public void commitSale(String ccn) {
-        /*try {
-            Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("");
-            result.next();
-            tid = result.getNString(1);
-        } catch (SQLException sqe) {
-            System.err.println("Error fetching TID");
-        }
-        String cid = null;
-        try {
-            Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("select getCID from dual");
-            result.next();
-            cid = result.getNString(1);
-        } catch (SQLException sqe) {
-            System.err.println("Unable to batch cid");
-        }
-        try {
-            Statement s = con.createStatement();
-            s.executeUpdate("insert into CUSTOMER values('" + cid + "', 'Guest', '" + ccn + "')");
-        } catch (SQLException sqe) {
-            System.err.println("Unable to insert into CUSTOMER");
-        }
-        try {
-            Statement s = con.createStatement();
-            s.executeUpdate("insert into CONDUCTS values('" + cid + "', '" + tid + "')");
-        } catch (SQLException sqe) {
-            System.err.println("Unable to insert into CONDUCTS");
-        }*/
         int newoid =0;
         try {
             Statement stmt = con.createStatement();
@@ -302,8 +273,8 @@ public class Sale {
 
         @Override
         public String toString() {
-            return current.getID() + "\t" + current.getName() + "\t"
-                    + quant + "    " + current.getPrice();
+            return "SKU: " + current.getID() + "\t" + current.getName() + "\nESRB: " + current.getESRB() + "\tQuantity: "
+                    + quant + "\tPrice: " + current.getPrice();
         }
     }
 }

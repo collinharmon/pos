@@ -19,6 +19,7 @@ public class Item {
 
     PrintStream ps;
     private int id;
+    String esrb;
     private Connection con;
     private String name;
     private Money price;
@@ -34,6 +35,7 @@ public class Item {
             if (res.next()) {
                 name = res.getString("name");
                 price = new Money(res.getDouble("price"));
+                esrb = res.getString("esrb");
             }
         } catch (SQLException sqe) {
             System.err.println("Unable to find item");
@@ -46,6 +48,9 @@ public class Item {
 
     public String getName() {
         return name;
+    }
+    public String getESRB(){
+        return esrb;
     }
 
     public Money getPrice() {
