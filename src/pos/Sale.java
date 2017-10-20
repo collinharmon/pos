@@ -54,10 +54,10 @@ public class Sale {
         int newoid =0;
         try {
             Statement stmt = con.createStatement();
-            ResultSet result = stmt.executeQuery("select oid from pos.orders order by oid desc limit 1");
-            result.next();
-            newoid = result.getInt(1) + 1;
-            stmt.executeUpdate("insert into pos.orders (oid) values (" + newoid + ")");
+            //ResultSet result = stmt.executeQuery("select oid from pos.orders order by oid desc limit 1");
+            //result.next();
+            //newoid = result.getInt(1) + 1;
+            stmt.executeUpdate("insert into pos.orders (eid) values ('" + PointofSale.system.eid + "')");
         }
         catch(SQLException sqe){
             System.err.println("Unable to insert into orders");
@@ -155,7 +155,7 @@ public class Sale {
     void printRecipt() {
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
-        System.out.println("             What is the Point of Sales\n                " + df.format(cal.getTime()) + "\n                       Thank you\n____________________________________");
+        System.out.println("             \n                " + df.format(cal.getTime()) + "\n                       Thank you\n____________________________________");
         System.out.print(this);
         TaxCalculator tcalc = TaxCalculator.getInstance();
         tax.setValue(tcalc.calculateTax(subtotal));

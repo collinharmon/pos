@@ -26,6 +26,8 @@ public class PointofSale {
             /*(Statement s2 = con.createStatement();
             ResultSet result2 = s2.executeQuery("select * from pos.game");
             while(result2.next()) System.out.println(result2.getNString(1));*/
+            Statement s = con.createStatement();
+            s.executeUpdate("set time_zone = 'US/Pacific'");
             system = new Sys(con);
             doLogin();
         } catch (Exception e) {

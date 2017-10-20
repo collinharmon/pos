@@ -23,6 +23,8 @@ public class Sys {
 
     boolean loggedIn;
     String error;
+    String name, eid;
+    boolean isManager;
     Sale s;
     Connection con;
     private PrintStream ps;
@@ -35,24 +37,30 @@ public class Sys {
     }
 
     public int login(String username, String password) {
-        return 2;
-        /*try {
+        //return 2;
+        try {
             Statement smt = con.createStatement();
-            String query = "select * from EMPLOYEE where UNAME = '" + username
-                    + "' and PWORD = '" + password + "'";
+            String query = "select * from pos.employees where username = '" + username
+                    + "' and password = '" + password + "'";
             ResultSet res = smt.executeQuery(query);
             if (res.next()) {
-                if (Integer.parseInt(res.getNString(5)) == 1) {
+                name = res.getString("name") + " " + res.getString("surname");
+                eid = res.getString("eid");
+                if (res.getInt("manPriv") == 1) {
+                    isManager = true;
                     return 2;
                 }
-                return 1;
+                else{
+                    isManager = false;
+                    return 1;
+                }
             } else {
                 return 0;
             }
         } catch (SQLException sqe) {
             System.err.println("Unable to find requested entries");
             return 0;
-        }*/
+        }
     }
 
     public void logout() {

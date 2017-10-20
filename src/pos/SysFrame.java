@@ -66,7 +66,10 @@ public class SysFrame extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 0, 255));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 204));
-        jLabel1.setText("What is the Point of Sales?");
+        String mode;
+        if(system.isManager) mode = "Manager Mode";
+        else mode = "Employee Mode";
+        jLabel1.setText(mode + ": " + system.name + " " + system.eid);
 
         Return.setText("Rental Return");
         Return.addActionListener(new java.awt.event.ActionListener() {
