@@ -19,6 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static pos.PointofSale.system;
+
 public class Sys {
 
     boolean loggedIn;
@@ -37,7 +39,6 @@ public class Sys {
     }
 
     public int login(String username, String password) {
-        //return 2;
         try {
             Statement smt = con.createStatement();
             String query = "select * from pos.employees where username = '" + username
@@ -46,11 +47,19 @@ public class Sys {
             if (res.next()) {
                 name = res.getString("name") + " " + res.getString("surname");
                 eid = res.getString("eid");
-                if (res.getInt("manPriv") == 1) {
+                byte isLoggedIn = res.getByte("islogin");
+                byte isMan = res.getByte("manPriv");
+                if(isLoggedIn == 1){
+                    return 3; //where 3 means already logged in
+                }
+                else smt.executeUpdate("update pos.employees set islogin=1 where eid ='" + eid + "'");
+                if (isMan == 1) {
+                    loggedIn = true;
                     isManager = true;
                     return 2;
                 }
                 else{
+                    loggedIn = true;
                     isManager = false;
                     return 1;
                 }
@@ -64,6 +73,12 @@ public class Sys {
     }
 
     public void logout() {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("update pos.employees set islogin = 0 where eid = '" + eid + "'");
+        } catch (SQLException se) {
+            System.err.println("Unable to log user out of system.");
+        }
         LoginNew l = new LoginNew(this, con);
     }
 

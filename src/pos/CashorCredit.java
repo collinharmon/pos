@@ -5,6 +5,8 @@
  */
 package pos;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.PrintStream;
 import javax.swing.JFrame;
 
@@ -25,7 +27,14 @@ public class CashorCredit extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                s.printRecipt();
+                dispose();
+            }
+        });
+        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -42,7 +51,7 @@ public class CashorCredit extends javax.swing.JFrame {
         OK = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 255));
@@ -110,8 +119,8 @@ public class CashorCredit extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelActionPerformed
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
-        this.dispose();
-        Getccn gccn = new Getccn(s, ps, sysf);
+        //this.dispose();
+        //Getccn gccn = new Getccn(s, ps, sysf);
     }//GEN-LAST:event_OKActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

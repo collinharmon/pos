@@ -16,6 +16,12 @@ public class SysFrame extends javax.swing.JFrame {
     private Sys system;
     boolean isNewTransaction = true;
     PrintStream ps;
+    RemoveItem ri;
+    AddItem ai;
+    EditItemPrice eip;
+    NewReturn nr;
+    ManagerLogin ml;
+    CashorCredit coc;
 
     /**
      * Creates new form SysFrame
@@ -48,6 +54,7 @@ public class SysFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Return = new javax.swing.JButton();
         AddItem = new javax.swing.JButton();
+        EditItem = new javax.swing.JButton();
         Account = new javax.swing.JButton();
         RemoveItem = new javax.swing.JButton();
         Checkout = new javax.swing.JButton();
@@ -78,6 +85,12 @@ public class SysFrame extends javax.swing.JFrame {
             }
         });
 
+        EditItem.setText("Edit Item Price");
+        EditItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddEditItemActionPerformed(evt);
+            }
+        });
         Account.setText("Account");
         Account.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +160,7 @@ public class SysFrame extends javax.swing.JFrame {
                             .addComponent(Checkout, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(RemoveItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AddItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(EditItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Account, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel1))
@@ -168,6 +182,8 @@ public class SysFrame extends javax.swing.JFrame {
                         .addComponent(Checkout, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Return, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(EditItem, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,42 +207,80 @@ public class SysFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RemoveItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveItemActionPerformed
-        if (isNewTransaction == true) {
-            jTextArea1.setText("");
-            System.out.println("There else no transaction in progress");
-        } else {
-            RemoveItem ri = new RemoveItem(system.s, ps);
+        if((ai == null || !ai.isDisplayable()) && (eip == null || !eip.isDisplayable()) && (ml == null || !ml.isDisplayable()) && (ri == null || !ri.isDisplayable()) && (nr == null || !nr.isDisplayable()) && (coc == null ||!coc.isDisplayable())) {
+            if( system.s == null || system.s.l == null ||system.s.l.head == null){
+                jTextArea1.setText("");
+                System.out.println("There is no transaction in progress.");
+            }
+            else {
+                jTextArea1.setText("");
+                ri = new RemoveItem(system.s, ps);
+            }
         }
     }//GEN-LAST:event_RemoveItemActionPerformed
 
     private void AddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItemActionPerformed
         // TODO add your handling code here:
-        if (isNewTransaction == true) {
-            jTextArea1.setText("");
-            system.buildSale();
-            isNewTransaction = false;
-            AddItem ai = new AddItem(system.s, ps);
-            //System.out.println(system.s);
-        } else {
-            jTextArea1.setText("");
-            //System.out.println(system.s);
-            AddItem ai = new AddItem(system.s, ps);
+        if((ai == null || !ai.isDisplayable()) && (eip == null || !eip.isDisplayable()) && (ml == null || !ml.isDisplayable()) && (ri == null || !ri.isDisplayable()) && (nr == null || !nr.isDisplayable()) && (coc == null ||!coc.isDisplayable())) {
+            if (system.s == null || system.s.l == null || system.s.l.head == null) {
+                jTextArea1.setText("");
+                system.buildSale();
+                ai = new AddItem(system.s, ps);
+                //System.out.println(system.s);
+            } else {
+                jTextArea1.setText("");
+                //System.out.println(system.s);
+                ai = new AddItem(system.s, ps);
+            }
         }
 
     }//GEN-LAST:event_AddItemActionPerformed
+    private void AddEditItemActionPerformed(java.awt.event.ActionEvent evt){
+        if((ai == null || !ai.isDisplayable()) && (eip == null || !eip.isDisplayable()) && (ml == null || !ml.isDisplayable()) && (ri == null || !ri.isDisplayable()) && (nr == null || !nr.isDisplayable()) && (coc == null ||!coc.isDisplayable())) {
+            if (system.s != null && system.s.l != null && system.s.l.head != null) {
+                jTextArea1.setText("");
+                if(system.isManager){
+                    eip = new EditItemPrice(system.s, ps);
+                }
+                else{
+                    ml = new ManagerLogin(system.s, ps);
+                }
+            }
+            else{
+                jTextArea1.setText("");
+                System.out.println("There is no transaction in progress.");
+            }
+        }
+    }
 
     private void CheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckoutActionPerformed
-        CashorCredit coc = new CashorCredit(system.s, ps, this);
-        isNewTransaction = true;
+        if((ai == null || !ai.isDisplayable()) && (eip == null || !eip.isDisplayable()) && (ml == null || !ml.isDisplayable()) && (ri == null || !ri.isDisplayable()) && (nr == null || !nr.isDisplayable()) && (coc == null ||!coc.isDisplayable())) {
+            /*brute force way of checking if their shopping cart is empty...*/
+            if(system.s != null && system.s.l != null && system.s.l.head != null) {
+                jTextArea1.setText("");
+                coc = new CashorCredit(system.s, ps, this);
+                isNewTransaction = true;
+            }
+            else{
+                jTextArea1.setText("");
+                System.out.println("There is no transaction in progress.");
+            }
+        }
     }//GEN-LAST:event_CheckoutActionPerformed
 
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
-        this.dispose();
-        system.logout();
+        if((ai == null || !ai.isDisplayable()) && (eip == null || !eip.isDisplayable()) && (ml == null || !ml.isDisplayable()) && (ri == null || !ri.isDisplayable()) && (nr == null || !nr.isDisplayable()) && (coc == null ||!coc.isDisplayable())) {
+            //nullify sale if employee/manager logs out in the middle of a transaction
+            system.s = null;
+            this.dispose();
+            system.logout();
+        }
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void ReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
-        NewReturn nr = new NewReturn(this, system, con);
+        if((ai == null || !ai.isDisplayable()) && (eip == null || !eip.isDisplayable()) && (ml == null || !ml.isDisplayable()) && (ri == null || !ri.isDisplayable()) && (nr == null || !nr.isDisplayable()) && (coc == null ||!coc.isDisplayable())) {
+            //nr = new NewReturn(this, system, con);
+        }
     }//GEN-LAST:event_ReturnActionPerformed
 
     private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
@@ -239,6 +293,7 @@ public class SysFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddItem;
+    private javax.swing.JButton EditItem;
     private javax.swing.JButton Account;
     private javax.swing.JButton Checkout;
     private javax.swing.JButton Logout;

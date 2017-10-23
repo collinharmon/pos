@@ -19,6 +19,7 @@ public class Item {
 
     PrintStream ps;
     private int id;
+    private boolean isEdited;
     String esrb;
     private Connection con;
     private String name;
@@ -26,6 +27,7 @@ public class Item {
 
     public Item(int id, PrintStream ps, Connection con) {
         this.ps = ps;
+        isEdited = false;
         try {
             this.con = con;
             Statement s = this.con.createStatement();
@@ -52,13 +54,26 @@ public class Item {
     public String getESRB(){
         return esrb;
     }
+    public void setEdit(){
+        isEdited = true;
+    }
+    public boolean isEdited(){
+        return isEdited;
+    }
 
     public Money getPrice() {
         return price;
     }
+    public void setPrice(Money m) {price=m;}
 
+    //redefined isEqual to mean same sku and price
+    //imagine a scenario of someone buying three Super Mario 64s and they want to use a coupon on the game, or there is a buy 2 get 1 50% off.
+    //the order_items table will have two entries in this scenario, one entry with normal price and 2 qty, and another with edited price and 1 qty, but both have same skus
+    /*public boolean isHardEqual(Item i) {
+        return (this.getID() == i.getID() && this.getPrice().getValue() == i.getPrice().getValue());
+    }*/
     public boolean isEqual(Item i) {
-        return this.getID() == i.getID();
+        return (this.getID() == i.getID());
     }
 
 }

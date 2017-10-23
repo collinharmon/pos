@@ -364,7 +364,10 @@ public class LoginNew extends javax.swing.JFrame {
             system.loggedIn = true;
             this.dispose();
             PointofSale.doAdminWork();
-        } else {
+        } else if (num == 3) {
+            Password.setText("User Already Logged In");
+        }
+        else{
             Password.setText("Invalid Login");
         }
     }//GEN-LAST:event_EnterActionPerformed

@@ -16,6 +16,7 @@ public class PointofSale {
     public static Sys system;
     public static Connection con;
     public static OSys offlinesystem;
+    static boolean isLoggedIn;
 
     public static void main(String[] args) throws ClassNotFoundException {
         Backround bg = new Backround();
@@ -35,6 +36,18 @@ public class PointofSale {
             offlinesystem = new OSys();
             Login l = new Login(offlinesystem);
         }
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                if(isLoggedIn) {
+                    try {
+                        Statement st = con.createStatement();
+                        st.executeUpdate("update pos.employees set islogin = 0 where eid = '" + system.eid + "'");
+                    } catch (SQLException se) {
+                        System.err.println("Unable to log user out of system.");
+                    }
+                }
+            }
+        });
     }
 
     public static void doLogin() {
@@ -44,6 +57,7 @@ public class PointofSale {
     public static void doWork() {
         //system.updateDatabase();
         SysFrame sf = new SysFrame(con, system);
+        isLoggedIn = true;
     }
 
     public static void close() {
@@ -53,6 +67,7 @@ public class PointofSale {
     static void doAdminWork() {
         //system.updateDatabase();
         AdminFrame af = new AdminFrame(con, system);
+        isLoggedIn = true;
     }
 
     static void doOffileWork() {
