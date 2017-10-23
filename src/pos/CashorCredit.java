@@ -5,10 +5,13 @@
  */
 package pos;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.PrintStream;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class CashorCredit extends javax.swing.JFrame {
 
@@ -113,9 +116,15 @@ public class CashorCredit extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-        sysf.setOutputText("Sale completed with cash, ready for next sale.\n");
-        s.commitSale("Cash");
-        this.dispose();
+        if(s.finalVerify()){
+            sysf.setOutputText("Sale completed with cash, ready for next sale.\n");
+            s.commitSale("Cash");
+            this.dispose();
+        }
+        else{
+            ErrorDiaglog ed = new ErrorDiaglog();
+            dispose();
+        }
     }//GEN-LAST:event_CancelActionPerformed
 
     private void OKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKActionPerformed
@@ -129,4 +138,33 @@ public class CashorCredit extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    public class ErrorDiaglog extends JDialog {
+        JButton ok = new JButton("Okay");
+        JPanel buttHolder = new JPanel();
+        JTextArea errMsg = new JTextArea("One or more items are no longer available for sale. Please Resubmit.");
+        ErrorDiaglog(){
+            setBounds(500, 200, 400, 100);
+            addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
+                    dispose();
+                    s.l = null;
+                    s.printRecipt();
+                    s = null;
+                }
+            });
+            ok.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    dispose();
+                    s.l = null;
+                    s.printRecipt();
+                    s = null;
+                }
+            });
+            buttHolder.add(ok);
+            getContentPane().add(buttHolder, BorderLayout.SOUTH);
+            getContentPane().add(errMsg, BorderLayout.CENTER);
+            setVisible(true);
+        }
+    }
 }

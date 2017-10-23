@@ -219,6 +219,32 @@ public class Sale {
 
     }
 
+    //verify shopping cart game quantities before checking out...
+    public boolean finalVerify(){
+        Node current = l.head;
+        Statement s;
+        while(current != null){
+            Node turtle = current;
+            int itemQuant = 0;
+            while(turtle != null) {
+                itemQuant += turtle.getQuant();
+                turtle = turtle.under;
+            }
+            try {
+                s = con.createStatement();
+                ResultSet res = s.executeQuery("select * from pos.games where sku =" + current.getItem().getID());
+                if(res.next()){
+                    if (itemQuant > res.getInt("quantity")) return false;
+                }
+            }
+            catch(SQLException se){
+                System.err.println("Unable to query item sku=" + current.getItem().getID());
+            }
+           current = current.next;
+        }
+        return true;
+    }
+
     class LinkedListOfItems {
 
         Node head;
