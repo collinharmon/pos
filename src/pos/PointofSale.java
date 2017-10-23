@@ -23,7 +23,7 @@ public class PointofSale {
         Class.forName("com.mysql.jdbc.Driver");
         try {
             //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.
-            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=pos_team", "pos_team", "plasticbag22");
+            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=pos_team", "pos_team", "");
             /*(Statement s2 = con.createStatement();
             ResultSet result2 = s2.executeQuery("select * from pos.game");
             while(result2.next()) System.out.println(result2.getNString(1));*/
