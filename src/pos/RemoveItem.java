@@ -6,6 +6,8 @@
 
 package pos;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.PrintStream;
 import javax.swing.JFrame;
 
@@ -26,7 +28,7 @@ public class RemoveItem extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -45,7 +47,14 @@ public class RemoveItem extends javax.swing.JFrame {
         OK = new javax.swing.JButton();
         IsRental = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                s.printRecipt();
+                dispose();
+            }
+        });
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RemoveItem");
         setAlwaysOnTop(true);
 
@@ -134,12 +143,14 @@ public class RemoveItem extends javax.swing.JFrame {
         try {
             iid = Integer.parseInt(ItemID.getText());
             rental = IsRental.isSelected();
+            //s.removeItem(iid, rental);
             s.removeItem(iid, rental);
-            ps.println("\n***New Recipt***\n");
-            s.printRecipt();
             this.dispose();
         } catch (NumberFormatException nfe) {
             ItemID.setText("Invalid Input");
+        }
+        catch(IllegalArgumentException ne){
+            ItemID.setText("Invalid SKU");
         }
     }//GEN-LAST:event_OKActionPerformed
 

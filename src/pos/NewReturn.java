@@ -5,6 +5,8 @@
  */
 package pos;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -29,7 +31,13 @@ public class NewReturn extends javax.swing.JFrame {
         this.con = con;
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        //this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
         this.setVisible(true);
     }
 
@@ -50,7 +58,7 @@ public class NewReturn extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Submit = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 255));
 

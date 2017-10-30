@@ -34,6 +34,7 @@ public class Backround extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(200, 215, 250));
 
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(

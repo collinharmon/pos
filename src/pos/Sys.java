@@ -19,10 +19,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static pos.PointofSale.system;
+
 public class Sys {
 
     boolean loggedIn;
     String error;
+    String name, eid;
+    boolean isManager;
     Sale s;
     Connection con;
     private PrintStream ps;
@@ -35,27 +39,46 @@ public class Sys {
     }
 
     public int login(String username, String password) {
-        return 2;
-        /*try {
+        try {
             Statement smt = con.createStatement();
-            String query = "select * from EMPLOYEE where UNAME = '" + username
-                    + "' and PWORD = '" + password + "'";
+            String query = "select * from pos.employees where username = '" + username
+                    + "' and password = '" + password + "'";
             ResultSet res = smt.executeQuery(query);
             if (res.next()) {
-                if (Integer.parseInt(res.getNString(5)) == 1) {
+                name = res.getString("name") + " " + res.getString("surname");
+                eid = res.getString("eid");
+                byte isLoggedIn = res.getByte("islogin");
+                byte isMan = res.getByte("manPriv");
+                if(isLoggedIn == 1){
+                    return 3; //where 3 means already logged in
+                }
+                else smt.executeUpdate("update pos.employees set islogin=1 where eid ='" + eid + "'");
+                if (isMan == 1) {
+                    loggedIn = true;
+                    isManager = true;
                     return 2;
                 }
-                return 1;
+                else{
+                    loggedIn = true;
+                    isManager = false;
+                    return 1;
+                }
             } else {
                 return 0;
             }
         } catch (SQLException sqe) {
             System.err.println("Unable to find requested entries");
             return 0;
-        }*/
+        }
     }
 
     public void logout() {
+        try {
+            Statement st = con.createStatement();
+            st.executeUpdate("update pos.employees set islogin = 0 where eid = '" + eid + "'");
+        } catch (SQLException se) {
+            System.err.println("Unable to log user out of system.");
+        }
         LoginNew l = new LoginNew(this, con);
     }
 
