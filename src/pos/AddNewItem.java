@@ -50,13 +50,13 @@ public class AddNewItem extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel2.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel1.setText("Add New Item");
 
         jLabel2.setText("WPS");
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
         INL.setText("Item Name");

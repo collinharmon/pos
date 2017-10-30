@@ -53,7 +53,7 @@ public class AddItem extends javax.swing.JFrame {
         });
         setAlwaysOnTop(true);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1.setBackground(new java.awt.Color(179, 230, 255));
 
         jLabel2.setText("Input Quantity");
 

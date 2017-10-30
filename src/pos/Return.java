@@ -66,7 +66,7 @@ public class Return extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(700, 700));
         setSize(new java.awt.Dimension(700, 700));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(200, 215, 250));
 
         jLabel1.setText("What is the Point of Sales");
 

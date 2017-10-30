@@ -33,32 +33,38 @@ public class InventoryLevels extends javax.swing.JFrame {
         int pnum = 0;
         try {
             Statement s1 = con.createStatement();
-            ResultSet result1 = s1.executeQuery("select NUMPRODUCTS from dual");
+            ResultSet result1 = s1.executeQuery("select count(*) from pos.games");
             result1.next();
-            pnum = Integer.parseInt(result1.getNString(1));
+            pnum = result1.getInt(1);
+            ps.println("Fetching " + pnum + " games...");
         } catch (SQLException sqe) {
-            ps.println("Error fetching NUMPRODUCTS from dual.");
+            ps.println("Error fetching COUNT from games.");
         }
         data = new String[pnum][];
-        for (int i = 0; i < data.length; i++) {
-            data[i] = new String[4];
+        for (int i = 0; i < pnum; i++) {
+            data[i] = new String[7];
         }
         try {
             Statement s7 = con.createStatement();
-            ResultSet result = s7.executeQuery("select PID, ITEM.\"Name\", QUANTITY_AVALIABLE, ITEM.\"Price\" from ITEM natural join INVENTORY order by PID");
+            ResultSet result = s7.executeQuery("select * from pos.games order by name");
             for (int i = 0; result.next(); i++) {
-                data[i][0] = result.getNString(1);
-                data[i][1] = result.getNString(2);
-                data[i][2] = result.getNString(3);
-                data[i][3] = result.getNString(4);
+                data[i][0] = result.getString(1);   //name
+                data[i][1] = result.getString(2);   //platform
+                data[i][2] = String.valueOf(result.getInt(3));  //quantity
+                data[i][3] = String.valueOf(result.getDouble(4));   //price
+                data[i][4] = String.valueOf(result.getDate(5)); //release date
+                data[i][5] = result.getString(6);   //esrb
+                data[i][6] = String.valueOf(result.getInt(7));  //sku
             }
         } catch (SQLException sqe) {
             ps.println("Error fetching ALL data from dual.");
             ps.println(sqe.getMessage());
         }
-        ps.printf("PID  \tName                                              \tIn Stock\tPrice\n");
+        ps.printf(" SKU | Platform | Name                                             | Quantity | Price | ESRB | Release Date\n");
+        ps.printf("-----------------------------------------------------------------------------------------------------------\n");
+        // TO-DO font isn't monospaced so formatting is messy. Dynamically allocate 'name' space based on longest game name?
         for (int i = 0; i < data.length; i++) {
-            ps.printf("%-5s\t%-50s\t%1s\t$%s\n", data[i][0], data[i][1], data[i][2], data[i][3]);
+            ps.printf(" %-3s | %-5s | %-50s | $-%3s | %-5s | %-8s\n", data[i][6], data[i][1], data[i][0], data[i][2], data[i][3], data[i][5], data[i][4]);
         }
     }
 
@@ -95,13 +101,13 @@ public class InventoryLevels extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel2.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel1.setText("Inventory Levels");
 
         jLabel2.setText("WPS");
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         IL.setColumns(20);
         IL.setRows(5);

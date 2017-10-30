@@ -46,13 +46,13 @@ public class UpdatePrice extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(200, 215, 250));
 
         jLabel1.setText("Update Price");
 
         jLabel2.setText("WPS");
 
-        ItemInformation.setBackground(new java.awt.Color(0, 0, 255));
+        ItemInformation.setBackground(new java.awt.Color(200, 215, 250));
         ItemInformation.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
         jLabel3.setText("Item ID");

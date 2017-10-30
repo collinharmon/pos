@@ -29,10 +29,11 @@ public class Backround extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(100, 35, 228));
-        setForeground(new java.awt.Color(107, 57, 255));
+        setBackground(new java.awt.Color(199, 215, 249));
+        setForeground(new java.awt.Color(200, 215, 250));
 
-        jPanel1.setBackground(new java.awt.Color(121, 80, 255));
+        jPanel1.setBackground(new java.awt.Color(200, 215, 250));
+
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
