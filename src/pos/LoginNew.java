@@ -81,7 +81,7 @@ public class LoginNew extends javax.swing.JFrame {
         Password.setEditable(false);
         Password.setText("Password");
 
-        One.setBackground(new java.awt.Color(255, 204, 0));
+        One.setBackground(new java.awt.Color(234, 216, 249));
         One.setText("1");
         One.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         One.setPreferredSize(new java.awt.Dimension(75, 75));

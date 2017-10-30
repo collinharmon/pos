@@ -60,15 +60,15 @@ public class ReturnItem extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 204));
+        setBackground(new java.awt.Color(200, 215, 250));
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel2.setBackground(new java.awt.Color(179, 230, 255));
 
         jLabel1.setText("Accept Item");
 
         jLabel2.setText("WPS");
 
-        IP.setBackground(new java.awt.Color(51, 51, 255));
+        IP.setBackground(new java.awt.Color(179, 230, 255));
         IP.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
         jLabel3.setText("ItemID");

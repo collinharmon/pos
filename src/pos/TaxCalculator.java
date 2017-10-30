@@ -17,7 +17,7 @@ public class TaxCalculator {
     }
     
     double calculateTax(Money subtotal){
-       Money tax = new Money(subtotal.getValue() * 0.05);
+       Money tax = new Money(subtotal.getValue() * 0.08);
        return tax.toDouble();
     }
 }
