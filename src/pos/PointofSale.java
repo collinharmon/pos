@@ -22,10 +22,12 @@ public class PointofSale {
         Class.forName("com.mysql.jdbc.Driver");
         try {
             //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.
-            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=collinharmon", "user_name_here", "password_here");
-            Statement s2 = con.createStatement();
-            ResultSet result2 = s2.executeQuery("select * from pos.game");
-            while(result2.next()) System.out.println(result2.getNString(1));
+            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=pos_team", "pos_team", "Plasticbag_33");
+//            Statement s2 = con.createStatement();
+//            ResultSet result2 = s2.executeQuery("select * from pos.game");
+//            while(result2.next()) System.out.println(result2.getNString(1));
+            Statement s = con.createStatement();
+            s.executeUpdate("set time_zone = 'US/Pacific'");
             system = new Sys(con);
             doLogin();
         } catch (SQLException e) {
