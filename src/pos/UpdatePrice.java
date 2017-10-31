@@ -142,22 +142,22 @@ public class UpdatePrice extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
-        String iid = ItemID.getText();
+        String sku = ItemID.getText();
         String price = Price.getText();
-        if (price.equals("") || iid.equals("")) {
+        if (price.equals("") || sku.equals("")) {
             ItemID.setText("Invalid input: Fields cannot be null");
-        } else if (!checkString(iid)) {
-            ItemID.setText("Invalid input: Item ID must be a 5 digit number");
+        } else if (!checkString(sku)) {
+            ItemID.setText("Invalid input: Item ID must be a 8 digit number");
         } else if (!checkPrice(price)) {
             ItemID.setText("Invalid input: Price must be a number");
         } else {
             try {
                 Statement s = con.createStatement();
-                s.executeUpdate("update ITEM set ITEM.\"Price\" = '" + price + "' where PID = '" + iid + "'");
+                s.executeUpdate("update pos.games set price = " + price + " where sku = " + sku + "");
                 this.dispose();
                 UpdateSuccessful us = new UpdateSuccessful();
             } catch (SQLException sqe) {
-                System.err.println("Unable to delete from ITEM");
+                System.err.println("Unable to delete from pos.games");
                 System.err.println(sqe.getMessage());
             }
         }
@@ -179,7 +179,7 @@ public class UpdatePrice extends javax.swing.JFrame {
         if (iid.isEmpty()) {
             return false;
         }
-        if (iid.length() != 5) {
+        if (iid.length() != 8) {
             return false;
         }
         for (int i = 0; i < iid.length(); i++) {
@@ -215,4 +215,3 @@ public class UpdatePrice extends javax.swing.JFrame {
         }
         return true;
     }
-}
