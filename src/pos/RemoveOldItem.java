@@ -49,13 +49,13 @@ public class RemoveOldItem extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel1.setText("Remove Item");
 
         jLabel2.setText("WPS");
 
-        IIFrame.setBackground(new java.awt.Color(0, 0, 255));
+        IIFrame.setBackground(new java.awt.Color(180, 230, 255));
         IIFrame.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
         IIDL.setText("Item ID");
@@ -153,7 +153,7 @@ public class RemoveOldItem extends javax.swing.JFrame {
         else{
             try{
                 Statement s = con.createStatement();
-                s.executeUpdate("delete from ITEM where PID = '"+iid+"' AND ITEM.\"Name\" = '"+name+"'");
+                s.executeUpdate("delete from pos.games where sku = '"+iid+"' AND name = '" +name+ "'");
                 this.dispose();
                 UpdateSuccessful us = new UpdateSuccessful();
             }catch(SQLException sqe){
@@ -179,7 +179,7 @@ public class RemoveOldItem extends javax.swing.JFrame {
         if (iid.isEmpty()) {
             return false;
         }
-        if (iid.length() != 5) {
+        if (iid.length() != 8) {
             return false;
         }
         for (int i = 0; i < iid.length(); i++) {
