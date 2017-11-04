@@ -5,6 +5,9 @@
  */
 package pos;
 
+//import com.sun.corba.se.spi.protocol.InitialServerRequestDispatcher;
+//import sun.util.resources.cldr.ext.CalendarData_ar_IQ;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,6 +48,14 @@ public class AddNewItem extends javax.swing.JFrame {
         IName = new javax.swing.JTextField();
         IPL = new javax.swing.JLabel();
         Price = new javax.swing.JTextField();
+        IPLL = new javax.swing.JLabel();
+        Platform = new javax.swing.JTextField();
+        IQL = new javax.swing.JLabel();
+        Quantity = new javax.swing.JTextField();
+        IRDL = new javax.swing.JLabel();
+        Release_date = new javax.swing.JTextField();
+        IRL = new javax.swing.JLabel();
+        Rating = new javax.swing.JTextField();
         Submit = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
 
@@ -62,6 +73,14 @@ public class AddNewItem extends javax.swing.JFrame {
         INL.setText("Item Name");
 
         IPL.setText("Price");
+
+        IPLL.setText("Platform");
+
+        IQL.setText("Quantity");
+
+        IRDL.setText("Release Date (YYYY-MM-DD)");
+
+        IRL.setText("ESRB Rating");
 
         Submit.setText("Submit");
         Submit.addActionListener(new java.awt.event.ActionListener() {
@@ -88,9 +107,17 @@ public class AddNewItem extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(INL)
-                            .addComponent(IPL))
+                            .addComponent(IPL)
+                            .addComponent(IPLL)
+                            .addComponent(IQL)
+                            .addComponent(IRDL)
+                            .addComponent(IRL))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(Price)
+                    .addComponent(Platform)
+                    .addComponent(Quantity)
+                    .addComponent(Release_date)
+                    .addComponent(Rating)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(Cancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -108,6 +135,22 @@ public class AddNewItem extends javax.swing.JFrame {
                 .addComponent(IPL)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(IPLL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Platform, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(IQL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(IRDL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Release_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(IRL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Submit)
@@ -156,28 +199,33 @@ public class AddNewItem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
-        String pid = null;
+        String sku = null;
         String name = IName.getText();
+        String platform = Platform.getText();
+        String quantity = Quantity.getText();
         String price = Price.getText();
-        if (name.equals("") || price.equals("")) {
+        String release_date = Release_date.getText();
+        String rating = Rating.getText();
+        if (name.equals("") || price.equals("") || platform.equals("")) {
             IName.setText("Invalid input, fields cannot be null");
             Price.setText("");
+            Platform.setText("");
         } else if (!checkString(price)) {
             IName.setText("Invalid input, price price cannot be NaN");
             Price.setText("Do not include '$'");
         } else {
             try {
                 Statement s = con.createStatement();
-                ResultSet result = s.executeQuery("select getpid from dual");
+                ResultSet result = s.executeQuery("select count(*) from pos.games");
                 result.next();
-                pid = result.getNString(1);
+                sku = result.getNString(1) + 1;
             } catch (SQLException sqe) {
                 System.err.println("Unable to select pid from dual");
                 System.err.println(sqe.getMessage());
             }
             try {
                 Statement s = con.createStatement();
-                s.executeUpdate("insert into ITEM values('" + pid + "', '" + name + "', '" + price + "')");
+                s.executeUpdate("insert into pos.games values('" + name + "', '" + platform + "', " + quantity + ", " + price + ", '" + release_date + "', '" + rating + "', " + sku + ")");
                 this.dispose();
                 UpdateSuccessful us = new UpdateSuccessful();
             } catch (SQLException sqe) {
@@ -198,6 +246,14 @@ public class AddNewItem extends javax.swing.JFrame {
     private javax.swing.JTextField IName;
     private javax.swing.JLabel IPL;
     private javax.swing.JTextField Price;
+    private javax.swing.JLabel IPLL;
+    private javax.swing.JTextField Platform;
+    private javax.swing.JLabel IQL;
+    private javax.swing.JTextField Quantity;
+    private javax.swing.JLabel IRDL;
+    private javax.swing.JTextField Release_date;
+    private javax.swing.JLabel IRL;
+    private javax.swing.JTextField Rating;
     private javax.swing.JButton Submit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
