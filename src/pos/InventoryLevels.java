@@ -46,7 +46,7 @@ public class InventoryLevels extends javax.swing.JFrame {
         }
         try {
             Statement s7 = con.createStatement();
-            ResultSet result = s7.executeQuery("select * from pos.games order by name");
+            ResultSet result = s7.executeQuery("select * from pos.games order by sku");
             for (int i = 0; result.next(); i++) {
                 data[i][0] = result.getString(1);   //name
                 data[i][1] = result.getString(2);   //platform
@@ -64,7 +64,8 @@ public class InventoryLevels extends javax.swing.JFrame {
         ps.printf("-----------------------------------------------------------------------------------------------------------\n");
         // TO-DO font isn't monospaced so formatting is messy. Dynamically allocate 'name' space based on longest game name?
         for (int i = 0; i < data.length; i++) {
-            ps.printf(" %-3s | %-5s | %-50s | $-%3s | %-5s | %-8s\n", data[i][6], data[i][1], data[i][0], data[i][2], data[i][3], data[i][5], data[i][4]);
+            String sku = String.format("%08d", Integer.parseInt(data[i][6]));
+            ps.printf(" %s | %-5s | %-50s | $-%3s | %-5s | %-8s\n", sku, data[i][1], data[i][0], data[i][2], data[i][3], data[i][5], data[i][4]);
         }
     }
 
