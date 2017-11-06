@@ -22,11 +22,11 @@ public class Employee {
         int numemp;
         try {
             Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("select numemployees from dual");
+            ResultSet result = s.executeQuery("select count(*) from pos.employees");
             result.next();
             numemp = Integer.parseInt(result.getNString(1));
         } catch (SQLException sqe) {
-            System.err.println("Unable to fetch numemployees from dual");
+            System.err.println("Unable to fetch count from pos.employees");
             numemp = -1;
         }
         return numemp;

@@ -42,9 +42,15 @@ public class EmployeeInfo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         EName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        SName = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        Position = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         UName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         Password = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        Salary = new javax.swing.JTextField();
         IsManager = new javax.swing.JCheckBox();
         Submit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -52,16 +58,22 @@ public class EmployeeInfo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
-        IFrame.setBackground(new java.awt.Color(0, 0, 255));
+        IFrame.setBackground(new java.awt.Color(180, 230, 255));
         IFrame.setBorder(new javax.swing.border.MatteBorder(null));
 
-        jLabel3.setText("Employee Name*");
+        jLabel3.setText("Employee First Name*");
 
         jLabel4.setText("Employee Username*");
 
         jLabel5.setText("Employee Password*");
+
+        jLabel6.setText("Employee Last Name*");
+
+        jLabel7.setText("Employee Position*");
+
+        jLabel8.setText("Hourly Wage*");
 
         IsManager.setText("Is Manager");
 
@@ -82,14 +94,20 @@ public class EmployeeInfo extends javax.swing.JFrame {
                     .addGroup(IFrameLayout.createSequentialGroup()
                         .addGroup(IFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(EName)
+                            .addComponent(SName)
+                            .addComponent(Position)
                             .addComponent(UName)
-                            .addComponent(Password))
+                            .addComponent(Password)
+                            .addComponent(Salary))
                         .addContainerGap())
                     .addGroup(IFrameLayout.createSequentialGroup()
                         .addGroup(IFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(IFrameLayout.createSequentialGroup()
                         .addComponent(IsManager)
@@ -104,6 +122,14 @@ public class EmployeeInfo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Position, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(UName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,6 +137,10 @@ public class EmployeeInfo extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Salary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(IFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(IsManager)
@@ -164,8 +194,11 @@ public class EmployeeInfo extends javax.swing.JFrame {
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
         String eid = null;
         String name = EName.getText();
+        String sname = SName.getText();
+        String position = Position.getText();
         String username = UName.getText();
         String password = Password.getText();
+        String salary = Salary.getText();
         boolean mancred = IsManager.isSelected();
         int mcred = 0;
         if (mancred == true) {
@@ -173,15 +206,15 @@ public class EmployeeInfo extends javax.swing.JFrame {
         }
         try {
             Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("select getEID from dual");
+            ResultSet result = s.executeQuery("select count(*) from pos.employees");
             result.next();
-            eid = result.getNString(1);
+            eid = result.getNString(1) + 1;
         } catch (SQLException sqe) {
             System.err.println("Unable to select meid form dual");
         }
         try {
             Statement s = con.createStatement();
-            s.executeUpdate("insert into EMPLOYEE values('" + eid + "', '" + name + "', '" + username + "', '" + password + "', '" + mcred + "')");
+            s.executeUpdate("insert into pos.employees values('" + name + "', '" + sname + "', '" + username + "', '" + password + "', '" + position + "', " + salary + ", '" + eid + "', " + mcred + ", 0)");
             this.dispose();
             UpdateSuccessful updateSuccessful = new UpdateSuccessful();
         } catch (SQLException sqe) {
@@ -193,6 +226,9 @@ public class EmployeeInfo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EName;
+    private javax.swing.JTextField SName;
+    private javax.swing.JTextField Position;
+    private javax.swing.JTextField Salary;
     private javax.swing.JPanel IFrame;
     private javax.swing.JCheckBox IsManager;
     private javax.swing.JTextField Password;
@@ -203,6 +239,9 @@ public class EmployeeInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
