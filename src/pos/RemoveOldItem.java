@@ -58,7 +58,7 @@ public class RemoveOldItem extends javax.swing.JFrame {
         IIFrame.setBackground(new java.awt.Color(180, 230, 255));
         IIFrame.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
-        IIDL.setText("Item ID");
+        IIDL.setText("Item SKU");
 
         INameL.setText("Item Name");
 
