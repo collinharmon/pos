@@ -216,15 +216,6 @@ public class AddNewItem extends javax.swing.JFrame {
         } else {
             try {
                 Statement s = con.createStatement();
-                ResultSet result = s.executeQuery("select count(*) from pos.games");
-                result.next();
-                sku = result.getInt(1) + 1;
-            } catch (SQLException sqe) {
-                System.err.println("Unable to select pid from dual");
-                System.err.println(sqe.getMessage());
-            }
-            try {
-                Statement s = con.createStatement();
                 s.executeUpdate("insert into pos.games (name, platform, quantity, price, release_date, esrb) values ('" + name + "', '" + platform + "', " + quantity + ", " + price + ", '" + release_date + "', '" + rating + "')");
                 this.dispose();
                 UpdateSuccessful us = new UpdateSuccessful();
