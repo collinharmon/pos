@@ -49,13 +49,13 @@ public class AddNewItem extends javax.swing.JFrame {
         IPL = new javax.swing.JLabel();
         Price = new javax.swing.JTextField();
         IPLL = new javax.swing.JLabel();
-        Platform = new javax.swing.JTextField();
+        Platform = new javax.swing.JComboBox(platforms);
         IQL = new javax.swing.JLabel();
         Quantity = new javax.swing.JTextField();
         IRDL = new javax.swing.JLabel();
         Release_date = new javax.swing.JTextField();
         IRL = new javax.swing.JLabel();
-        Rating = new javax.swing.JTextField();
+        Rating = new javax.swing.JComboBox(ratings);
         Submit = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
 
@@ -201,15 +201,14 @@ public class AddNewItem extends javax.swing.JFrame {
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
         Integer sku = null;
         String name = IName.getText();
-        String platform = Platform.getText();
+        String platform = String.valueOf(Platform.getSelectedItem());
         String quantity = Quantity.getText();
         String price = Price.getText();
         String release_date = Release_date.getText();
-        String rating = Rating.getText();
+        String rating = String.valueOf(Rating.getSelectedItem());
         if (name.equals("") || price.equals("") || platform.equals("")) {
             IName.setText("Invalid input, fields cannot be null");
             Price.setText("");
-            Platform.setText("");
         } else if (!checkString(price)) {
             IName.setText("Invalid input, price price cannot be NaN");
             Price.setText("Do not include '$'");
@@ -232,19 +231,21 @@ public class AddNewItem extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    String[] platforms = { "PC", "SWITC", "PS4", "XB1", "VITA", "3DS", "DS", "XB360", "PS3", "WIIU", "WII", "XBOX", "PS2", "PSP", "PS1", "GCUBE", "GBOY", "N64", "GEN", "SNES", "NES"};
+    String[] ratings = { "RP", "EC", "E", "E10", "T", "M", "AO"};
     private javax.swing.JButton Cancel;
     private javax.swing.JLabel INL;
     private javax.swing.JTextField IName;
     private javax.swing.JLabel IPL;
     private javax.swing.JTextField Price;
     private javax.swing.JLabel IPLL;
-    private javax.swing.JTextField Platform;
+    private javax.swing.JComboBox Platform;
     private javax.swing.JLabel IQL;
     private javax.swing.JTextField Quantity;
     private javax.swing.JLabel IRDL;
     private javax.swing.JTextField Release_date;
     private javax.swing.JLabel IRL;
-    private javax.swing.JTextField Rating;
+    private javax.swing.JComboBox Rating;
     private javax.swing.JButton Submit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
