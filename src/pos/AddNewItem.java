@@ -199,7 +199,7 @@ public class AddNewItem extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
-        String sku = null;
+        Integer sku = null;
         String name = IName.getText();
         String platform = Platform.getText();
         String quantity = Quantity.getText();
@@ -218,14 +218,14 @@ public class AddNewItem extends javax.swing.JFrame {
                 Statement s = con.createStatement();
                 ResultSet result = s.executeQuery("select count(*) from pos.games");
                 result.next();
-                sku = result.getNString(1) + 1;
+                sku = result.getInt(1) + 1;
             } catch (SQLException sqe) {
                 System.err.println("Unable to select pid from dual");
                 System.err.println(sqe.getMessage());
             }
             try {
                 Statement s = con.createStatement();
-                s.executeUpdate("insert into pos.games values('" + name + "', '" + platform + "', " + quantity + ", " + price + ", '" + release_date + "', '" + rating + "', " + sku + ")");
+                s.executeUpdate("insert into pos.games (name, platform, quantity, price, release_date, esrb) values ('" + name + "', '" + platform + "', " + quantity + ", " + price + ", '" + release_date + "', '" + rating + "')");
                 this.dispose();
                 UpdateSuccessful us = new UpdateSuccessful();
             } catch (SQLException sqe) {
