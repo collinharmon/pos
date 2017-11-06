@@ -52,18 +52,18 @@ public class RemoveEmployeeInfo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RemoveEmployeeInfo");
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel1.setText("Remove Employee");
 
         jLabel2.setText("WPS");
 
-        ETRFrame.setBackground(new java.awt.Color(0, 0, 255));
+        ETRFrame.setBackground(new java.awt.Color(180, 230, 255));
         ETRFrame.setBorder(javax.swing.BorderFactory.createTitledBorder("Employee To Remove"));
 
         EIDLabel.setText("Employee ID*");
 
-        ENameLabel.setText("Employee Name*");
+        ENameLabel.setText("Employee Username*");
 
         Submit.setText("Submit");
         Submit.addActionListener(new java.awt.event.ActionListener() {
@@ -164,16 +164,16 @@ public class RemoveEmployeeInfo extends javax.swing.JFrame {
             ID.setText("InvalidID.");
         } else if (name.equals("")) {
             ID.setText("Invalid Input");
-            Name.setText("Name required");
+            Name.setText("username required");
         } else {
             try {
                 Statement s = con.createStatement();
-                ResultSet result = s.executeQuery("select * from EMPLOYEE where EID = '" + eid + "' and NAME = '" + name + "'");
+                ResultSet result = s.executeQuery("select * from pos.employees where eid = '" + eid + "' and username = '" + name + "'");
                 if (!result.next()) {
                     ID.setText("Invalid: No such employee found");
                 } else {
                     Statement rs = con.createStatement();
-                    rs.executeUpdate("delete from EMPLOYEE where EID = '" + eid + "'");
+                    rs.executeUpdate("delete from pos.employees where eid = '" + eid + "'");
                     this.dispose();
                     UpdateSuccessful updateSuccessful = new UpdateSuccessful();
                 }

@@ -51,13 +51,13 @@ public class ChangePassword extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel2.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel1.setText("Change Password");
 
         jLabel2.setText("WPS");
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Employee Information"));
 
         jLabel3.setText("Username");
@@ -163,7 +163,7 @@ public class ChangePassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
-        String eid = null;
+        Integer eid = null;
         String uname = UName.getText();
         String pass = EPass.getText();
         String npass = NPass.getText();
@@ -180,7 +180,7 @@ public class ChangePassword extends javax.swing.JFrame {
         } else {
             try {
                 Statement s = con.createStatement();
-                ResultSet result = s.executeQuery("select * from EMPLOYEE where UNAME = '" + uname + "' and PWORD = '" + pass + "'");
+                ResultSet result = s.executeQuery("select * from pos.employees where username = '" + uname + "' and password = '" + pass + "'");
                 if (!result.next()) {
                     UName.setText("Invalid Employee");
                     EPass.setText("");
@@ -188,8 +188,8 @@ public class ChangePassword extends javax.swing.JFrame {
                     RNPass.setText("");
                 }
                 else{
-                    eid = result.getNString(1);
-                    s.executeUpdate("update EMPLOYEE set PWORD = '"+npass+"' where EID = '"+eid+"'");
+                    eid = result.getInt(7);
+                    s.executeUpdate("update pos.employees set password = '" + npass + "' where eid = '" + eid + "'");
                     this.dispose();
                     UpdateSuccessful updateSuccessful = new UpdateSuccessful();
                 }

@@ -50,14 +50,14 @@ public class EditEmployeeInfo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel2.setBackground(new java.awt.Color(180, 230, 255));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Edit Privilege Information"));
 
         LEID.setText("Employee ID");
 
-        LEName.setText("Employee Name");
+        LEName.setText("Employee Userame");
 
         MP.setText("ManPrivilege");
         MP.addActionListener(new java.awt.event.ActionListener() {
@@ -164,19 +164,19 @@ public class EditEmployeeInfo extends javax.swing.JFrame {
             EID.setText("InvalidID.");
         } else if (name.equals("")) {
             EID.setText("Invalid Input");
-            EName.setText("Name required");
+            EName.setText("Username required");
         } else {
             try {
                 Statement s = con.createStatement();
-                ResultSet result = s.executeQuery("select * from EMPLOYEE where EID = '" + eid + "' and NAME = '" + name + "'");
+                ResultSet result = s.executeQuery("select * from pos.employees where eid = '" + eid + "' and username = '" + name + "'");
                 if (!result.next()) {
                     EID.setText("Invalid: No such employee found");
                 } else {
                     Statement rs = con.createStatement();
                     if (MP.isSelected()) {
-                        rs.executeUpdate("update EMPLOYEE set MANCRED = 1 where EID = '" + eid + "'");
+                        rs.executeUpdate("update pos.employees set manPriv = 1 where eid = '" + eid + "'");
                     } else {
-                        rs.executeUpdate("update EMPLOYEE set MANCRED = 0 where EID = '" + eid + "'");
+                        rs.executeUpdate("update pos.employees set manPriv = 0 where eid = '" + eid + "'");
                     }
                     this.dispose();
                     UpdateSuccessful updateSuccessful = new UpdateSuccessful();
