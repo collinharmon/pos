@@ -30,36 +30,36 @@ public class SalesFrame extends javax.swing.JFrame {
         this.setVisible(true);
         ps = new PrintStream(new COS(IL));
         String[][] sales;
+        int snum = 0;
         try {
             Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("select count(*) from TRANSACTION");
+            ResultSet result = s.executeQuery("select count(*) from pos.orders");
             result.next();
-            sales = new String[Integer.parseInt(result.getNString(1))][];
-            for (int i = 0; i < sales.length; i++) {
+            snum = result.getInt(1);
+            ps.println("Fetching " + snum + " orders...");
+            sales = new String[snum][];
+            for (int i = 0; i < snum; i++) {
                 sales[i] = new String[5];
             }
             Statement s1 = con.createStatement();
-            ResultSet result1 = s1.executeQuery("select TID, SUBTOTAL, TAX, TOTAL, TDATE from TRANSACTION order by -TID");
+            ResultSet result1 = s1.executeQuery("select * from pos.orders order by -oid");
             for (int i = 0; result1.next(); i++) {
-                sales[i][0] = result1.getNString(1);
-                Money m = new Money(Double.parseDouble(result1.getNString(2)));
-                sales[i][1] = m.toString();
-                Money m1 = new Money(Double.parseDouble(result1.getNString(3)));
-                sales[i][2] = m1.toString();
-                Money m2 = new Money(Double.parseDouble(result1.getNString(4)));
-                sales[i][3] = m2.toString();
-                sales[i][4] = result1.getNString(5);
+                sales[i][0] = String.valueOf(result1.getInt(1)); //oid
+                sales[i][1] = result1.getString(2); //eid
+                sales[i][2] = String.valueOf(result1.getDate(3)); //date
+                sales[i][3] = String.valueOf(result1.getBigDecimal(4)); //tax
+                sales[i][4] = String.valueOf(result1.getDouble(5)); //total
             }
-            ps.println("Total sales for the store are:\nTID\tSubtotal  \t Tax    Total\tDate");
+            ps.println("Total sales for the store are:\nOID\tEID          \tDate    Tax Rate\tTotal");
             double sum = 0;
             for (int i = 0; i < sales.length; i++) {
-                ps.printf("%-5s\t%8.2f\t%5.2f%8.2f\t%s\n", sales[i][0], Double.parseDouble(sales[i][1]), Double.parseDouble(sales[i][2]), Double.parseDouble(sales[i][3]), sales[i][4]);
-                sum += Double.parseDouble(sales[i][3]);
+                ps.printf("%-2s\t%8s\t%5s%8s\t%s\n", sales[i][0], sales[i][1], sales[i][2], sales[i][3], sales[i][4]);
+                sum += Double.parseDouble(sales[i][4]);
             }
             Money m = new Money(sum);
-            ps.println("Total:\t          \t           " + m);
+            ps.println("Total: $" + m);
         } catch (SQLException sql) {
-            System.err.println("Error fetching sales data from dual");
+            System.err.println("Error fetching sales data from pos.orders");
         }
     }
 

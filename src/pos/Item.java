@@ -21,6 +21,7 @@ public class Item {
     private int id;
     private boolean isEdited;
     String esrb;
+    String platform;
     private Connection con;
     private String name;
     private Money price;
@@ -38,6 +39,7 @@ public class Item {
                 name = res.getString("name");
                 price = new Money(res.getDouble("price"));
                 esrb = res.getString("esrb");
+                platform = res.getString("platform");
             }
         } catch (SQLException sqe) {
             System.err.println("Unable to find item");
@@ -54,6 +56,7 @@ public class Item {
     public String getESRB(){
         return esrb;
     }
+    public String getPlatform() { return platform; }
     public void setEdit(){
         isEdited = true;
     }

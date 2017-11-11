@@ -96,7 +96,7 @@ public class Sale {
         int newoid = 0;
         try {
             Statement stmt = con.createStatement();
-            stmt.executeUpdate("insert into pos.orders (eid) values ('" + PointofSale.system.eid + "')");
+            stmt.executeUpdate("insert into pos.orders (eid, total) values ('" + PointofSale.system.eid + "', " + total + ")");
             //gets the highest oid in the table (which is the one generated up above, since it auto-incremenrs)
             stmt = con.createStatement();
             ResultSet result = stmt.executeQuery("select oid from pos.orders order by oid desc limit 1");
@@ -119,7 +119,7 @@ public class Sale {
                 current = current.next;
             }
         } catch (SQLException sqe) {
-            System.err.println("Unable to update or insert");
+            System.err.println("Unable to update games or insert into order items");
             System.err.println(sqe.getMessage());
         }
         /*try {
@@ -403,7 +403,7 @@ public class Sale {
 
         @Override
         public String toString() {
-            return "SKU: " + current.getID() + "\t" + current.getName() + "\nESRB: " + current.getESRB() + "\tQuantity: "
+            return "SKU: " + current.getID() + "\t" + current.getName() + " (" + current.getPlatform() + ")\nESRB: " + current.getESRB() + "\tQuantity: "
                     + quant + "\tPrice: " + current.getPrice();
         }
     }
