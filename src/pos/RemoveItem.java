@@ -58,11 +58,11 @@ public class RemoveItem extends javax.swing.JFrame {
         setTitle("RemoveItem");
         setAlwaysOnTop(true);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(234, 216, 249));
 
         ItemID.setColumns(1);
 
-        jLabel1.setText("Input ItemID:");
+        jLabel1.setText("Input SKU:");
 
         Cancel.setText("Cancel");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
