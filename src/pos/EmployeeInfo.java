@@ -192,7 +192,6 @@ public class EmployeeInfo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
-        String eid = null;
         String name = EName.getText();
         String sname = SName.getText();
         String position = Position.getText();
@@ -206,15 +205,7 @@ public class EmployeeInfo extends javax.swing.JFrame {
         }
         try {
             Statement s = con.createStatement();
-            ResultSet result = s.executeQuery("select count(*) from pos.employees");
-            result.next();
-            eid = result.getNString(1) + 1;
-        } catch (SQLException sqe) {
-            System.err.println("Unable to select meid form dual");
-        }
-        try {
-            Statement s = con.createStatement();
-            s.executeUpdate("insert into pos.employees values('" + name + "', '" + sname + "', '" + username + "', '" + password + "', '" + position + "', " + salary + ", '" + eid + "', " + mcred + ", 0)");
+            s.executeUpdate("insert into pos.employees (name, surname, username, password, position, salary, manPriv, islogin) values('" + name + "', '" + sname + "', '" + username + "', '" + password + "', '" + position + "', " + salary + ", " + mcred + ", 0)");
             this.dispose();
             UpdateSuccessful updateSuccessful = new UpdateSuccessful();
         } catch (SQLException sqe) {

@@ -45,7 +45,7 @@ public class SalesFrame extends javax.swing.JFrame {
             ResultSet result1 = s1.executeQuery("select * from pos.orders order by -oid");
             for (int i = 0; result1.next(); i++) {
                 sales[i][0] = String.valueOf(result1.getInt(1)); //oid
-                sales[i][1] = result1.getString(2); //eid
+                sales[i][1] = String.valueOf(result1.getString(2)); //eid
                 sales[i][2] = String.valueOf(result1.getDate(3)); //date
                 sales[i][3] = String.valueOf(result1.getBigDecimal(4)); //tax
                 sales[i][4] = String.valueOf(result1.getDouble(5)); //total

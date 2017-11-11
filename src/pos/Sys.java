@@ -25,7 +25,8 @@ public class Sys {
 
     boolean loggedIn;
     String error;
-    String name, eid;
+    Integer eid;
+    String name;
     boolean isManager;
     Sale s;
     Connection con;
@@ -46,7 +47,7 @@ public class Sys {
             ResultSet res = smt.executeQuery(query);
             if (res.next()) {
                 name = res.getString("name") + " " + res.getString("surname");
-                eid = res.getString("eid");
+                eid = res.getInt("eid");
                 byte isLoggedIn = res.getByte("islogin");
                 byte isMan = res.getByte("manPriv");
                 if(isLoggedIn == 1){
