@@ -5,17 +5,18 @@
  */
 package pos;
 
+import java.awt.*;
 import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JFrame;
+import javax.swing.*;
+import javax.swing.table.TableColumn;
 
 public class InventoryLevels extends javax.swing.JFrame {
 
     Connection con;
-    PrintStream ps;
 
     /**
      * Creates new form InventoryLevels
@@ -24,21 +25,15 @@ public class InventoryLevels extends javax.swing.JFrame {
      */
     public InventoryLevels(Connection con) {
         this.con = con;
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        ps = new PrintStream(new COS(IL));
-        String[][] data;
         int pnum = 0;
+        String sku;
         try {
             Statement s1 = con.createStatement();
             ResultSet result1 = s1.executeQuery("select count(*) from pos.games");
             result1.next();
             pnum = result1.getInt(1);
-            ps.println("Fetching " + pnum + " games...");
         } catch (SQLException sqe) {
-            ps.println("Error fetching COUNT from games.");
+            System.err.println("Error fetching COUNT from games.");
         }
         data = new String[pnum][];
         for (int i = 0; i < pnum; i++) {
@@ -48,25 +43,24 @@ public class InventoryLevels extends javax.swing.JFrame {
             Statement s7 = con.createStatement();
             ResultSet result = s7.executeQuery("select * from pos.games order by sku");
             for (int i = 0; result.next(); i++) {
-                data[i][0] = result.getString(1);   //name
-                data[i][1] = result.getString(2);   //platform
-                data[i][2] = String.valueOf(result.getInt(3));  //quantity
-                data[i][3] = String.valueOf(result.getDouble(4));   //price
-                data[i][4] = String.valueOf(result.getDate(5)); //release date
-                data[i][5] = result.getString(6);   //esrb
-                data[i][6] = String.valueOf(result.getInt(7));  //sku
+                data[i][0] = String.valueOf(result.getInt(7));  //sku
+                data[i][1] = result.getString(1);   //name
+                data[i][2] = result.getString(2);   //platform
+                data[i][3] = String.valueOf(result.getInt(3));  //quantity
+                data[i][4] = String.valueOf(result.getDouble(4));   //price
+                data[i][5] = String.valueOf(result.getDate(5)); //release date
+                data[i][6] = result.getString(6);   //esrb
+                sku = String.format("%08d", Integer.parseInt(data[i][0]));  //zerofill sku
+                data[i][0] = sku;
             }
         } catch (SQLException sqe) {
-            ps.println("Error fetching ALL data from dual.");
-            ps.println(sqe.getMessage());
+            System.err.println("Error fetching ALL data from dual.");
+            System.err.println(sqe.getMessage());
         }
-        ps.printf(" SKU | Platform | Name                                             | Quantity | Price | ESRB | Release Date\n");
-        ps.printf("-----------------------------------------------------------------------------------------------------------\n");
-        // TO-DO font isn't monospaced so formatting is messy. Dynamically allocate 'name' space based on longest game name?
-        for (int i = 0; i < data.length; i++) {
-            String sku = String.format("%08d", Integer.parseInt(data[i][6]));
-            ps.printf(" %s | %-5s | %-50s | $-%3s | %-5s | %-8s\n", sku, data[i][1], data[i][0], data[i][2], data[i][3], data[i][5], data[i][4]);
-        }
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -84,8 +78,10 @@ public class InventoryLevels extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        IL = new javax.swing.JTextArea();
         Done = new javax.swing.JButton();
+        InvTable = new javax.swing.JTable(data, columnNames);
+        // Sets Name column to be 300px wide
+        InvTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 
         jInternalFrame1.setVisible(true);
 
@@ -110,9 +106,7 @@ public class InventoryLevels extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
-        IL.setColumns(20);
-        IL.setRows(5);
-        jScrollPane1.setViewportView(IL);
+        jScrollPane1.setViewportView(InvTable);
 
         Done.setText("Done");
         Done.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +121,7 @@ public class InventoryLevels extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -137,7 +131,7 @@ public class InventoryLevels extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Done))
         );
@@ -190,12 +184,15 @@ public class InventoryLevels extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Done;
-    private javax.swing.JTextArea IL;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable InvTable;
+    private String[] columnNames = {"SKU", "Name", "Platform", "Quantity", "Price", "Release Date", "ESRB"};
+    private String[][] data;
+
     // End of variables declaration//GEN-END:variables
 }
