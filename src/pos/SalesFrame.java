@@ -5,7 +5,6 @@
  */
 package pos;
 
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,6 @@ import javax.swing.JFrame;
 public class SalesFrame extends javax.swing.JFrame {
 
     Connection con;
-    PrintStream ps;
 
     /**
      * Creates new form InventoryLevels
@@ -23,20 +21,12 @@ public class SalesFrame extends javax.swing.JFrame {
      * @param con
      */
     public SalesFrame(Connection con) {
-        this.con = con;
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setVisible(true);
-        ps = new PrintStream(new COS(IL));
-        String[][] sales;
         int snum = 0;
         try {
             Statement s = con.createStatement();
             ResultSet result = s.executeQuery("select count(*) from pos.orders");
             result.next();
             snum = result.getInt(1);
-            ps.println("Fetching " + snum + " orders...");
             sales = new String[snum][];
             for (int i = 0; i < snum; i++) {
                 sales[i] = new String[5];
@@ -50,17 +40,15 @@ public class SalesFrame extends javax.swing.JFrame {
                 sales[i][3] = String.valueOf(result1.getBigDecimal(4)); //tax
                 sales[i][4] = String.valueOf(result1.getDouble(5)); //total
             }
-            ps.println("Total sales for the store are:\nOID\tEID          \tDate    Tax Rate\tTotal");
-            double sum = 0;
-            for (int i = 0; i < sales.length; i++) {
-                ps.printf("%-2s\t%8s\t%5s%8s\t%s\n", sales[i][0], sales[i][1], sales[i][2], sales[i][3], sales[i][4]);
-                sum += Double.parseDouble(sales[i][4]);
-            }
-            Money m = new Money(sum);
-            ps.println("Total: $" + m);
+
         } catch (SQLException sql) {
             System.err.println("Error fetching sales data from pos.orders");
         }
+        this.con = con;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setVisible(true);
     }
 
     /**
@@ -78,7 +66,7 @@ public class SalesFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        IL = new javax.swing.JTextArea();
+        SalesTable = new javax.swing.JTable(sales, columnNames);
         Done = new javax.swing.JButton();
 
         jInternalFrame1.setVisible(true);
@@ -104,9 +92,8 @@ public class SalesFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
-        IL.setColumns(20);
-        IL.setRows(5);
-        jScrollPane1.setViewportView(IL);
+
+        jScrollPane1.setViewportView(SalesTable);
 
         Done.setText("Done");
         Done.addActionListener(new java.awt.event.ActionListener() {
@@ -184,12 +171,14 @@ public class SalesFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Done;
-    private javax.swing.JTextArea IL;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable SalesTable;
+    private String sales[][];
+    private String columnNames[] = {"Order ID", "Employee ID", "Date", "Tax Rate", "Total"};
     // End of variables declaration//GEN-END:variables
 }
