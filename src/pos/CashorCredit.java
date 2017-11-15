@@ -57,7 +57,7 @@ public class CashorCredit extends javax.swing.JFrame {
         //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         Cancel.setText("Cash");
         Cancel.addActionListener(new java.awt.event.ActionListener() {

@@ -55,7 +55,7 @@ public class SysFrame extends javax.swing.JFrame {
         Return = new javax.swing.JButton();
         AddItem = new javax.swing.JButton();
         EditItem = new javax.swing.JButton();
-        Account = new javax.swing.JButton();
+        Exit = new javax.swing.JButton();
         RemoveItem = new javax.swing.JButton();
         Checkout = new javax.swing.JButton();
         Logout = new javax.swing.JButton();
@@ -70,7 +70,7 @@ public class SysFrame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 204));
         setForeground(new java.awt.Color(255, 255, 204));
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel2.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 204));
         String mode;
@@ -91,10 +91,10 @@ public class SysFrame extends javax.swing.JFrame {
                 AddEditItemActionPerformed(evt);
             }
         });
-        Account.setText("Account");
-        Account.addActionListener(new java.awt.event.ActionListener() {
+        Exit.setText("Cancel");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AccountActionPerformed(evt);
+                ExitActionPerformed(evt);
             }
         });
 
@@ -126,7 +126,7 @@ public class SysFrame extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -161,7 +161,7 @@ public class SysFrame extends javax.swing.JFrame {
                             .addComponent(RemoveItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(AddItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(EditItem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Account, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Exit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -185,7 +185,7 @@ public class SysFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(EditItem, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Account, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Logout, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -265,6 +265,7 @@ public class SysFrame extends javax.swing.JFrame {
                 jTextArea1.setText("");
                 System.out.println("There is no transaction in progress.");
             }
+            system.buildSale();
         }
     }//GEN-LAST:event_CheckoutActionPerformed
 
@@ -283,7 +284,9 @@ public class SysFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ReturnActionPerformed
 
-    private void AccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
+        this.dispose();
+        AdminFrame af = new AdminFrame(con, system);
     }//GEN-LAST:event_ReturnActionPerformed
 
     public void setOutputText(String s) {
@@ -294,7 +297,7 @@ public class SysFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddItem;
     private javax.swing.JButton EditItem;
-    private javax.swing.JButton Account;
+    private javax.swing.JButton Exit;
     private javax.swing.JButton Checkout;
     private javax.swing.JButton Logout;
     private javax.swing.JButton RemoveItem;
