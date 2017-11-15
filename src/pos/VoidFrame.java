@@ -42,24 +42,24 @@ public class VoidFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         IFrame = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        TID = new javax.swing.JTextField();
+        OID = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        CID = new javax.swing.JTextField();
+        EID = new javax.swing.JTextField();
         Submit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel2.setText("WPS");
 
-        IFrame.setBackground(new java.awt.Color(0, 0, 255));
-        IFrame.setBorder(javax.swing.BorderFactory.createTitledBorder("Transaction Information"));
+        IFrame.setBackground(new java.awt.Color(180, 230, 255));
+        IFrame.setBorder(javax.swing.BorderFactory.createTitledBorder("Order Information"));
 
-        jLabel3.setText("Transaction ID");
+        jLabel3.setText("Order ID");
 
-        jLabel4.setText("Customer ID");
+        jLabel4.setText("Employee ID");
 
         Submit.setText("Submit");
         Submit.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +76,7 @@ public class VoidFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(IFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(IFrameLayout.createSequentialGroup()
-                        .addComponent(TID)
+                        .addComponent(OID)
                         .addContainerGap())
                     .addGroup(IFrameLayout.createSequentialGroup()
                         .addGroup(IFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +84,7 @@ public class VoidFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(IFrameLayout.createSequentialGroup()
-                        .addComponent(CID, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                        .addComponent(EID, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Submit))))
         );
@@ -94,17 +94,17 @@ public class VoidFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(IFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Submit))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("Void Transaction");
+        jLabel1.setText("Void Order");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -147,34 +147,23 @@ public class VoidFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
-        String tid = TID.getText();
-        String cid = CID.getText();
-        if (!checkString(tid) || !checkString(cid)) {
-            TID.setText("Invalid Input: two numbers required");
-            CID.setText("");
+        String oid = OID.getText();
+        String eid = EID.getText();
+        if (!checkString(oid) || !checkString(eid)) {
+            OID.setText("Invalid Input");
+            EID.setText("");
         } else {
             try {
                 Statement s = con.createStatement();
-                ResultSet result = s.executeQuery("select * from CONDUCTS where TID = '" + tid + "' and CID = '" + cid + "'");
+                ResultSet result = s.executeQuery("select * from pos.orders where oid = '" + oid + "' and eid = '" + eid + "'");
                 if (!result.next()) {
-                    TID.setText("No such traunsaction");
-                    CID.setText("");
+                    OID.setText("No such order");
+                    EID.setText("");
                 } else {
-                    result = s.executeQuery("select CREDIT from CUSTOMER where CID = '" + cid + "'");
-                    result.next();
-                    String ccn = result.getNString(1);
-                    result = s.executeQuery("select TOTAL from TRANSACTION where TID = '" + tid + "'");
-                    result.next();
-                    String total = result.getNString(1);
-                    if (ccn.equals("Cash")) {
-                        TenderCash tc = new TenderCash(total);
-                    } else {
-                        RefundCredit rc = new RefundCredit(ccn, total);
-                    }
-                    s.executeUpdate("delete from Transaction where tid = '" + tid + "'");
-                    s.executeUpdate("delete from Contains where tid = '" + tid + "'");
-                    s.executeUpdate("delete from Conducts where tid = '" + tid + "'");
+                    s.executeUpdate("delete from pos.order_items where oid = '" + oid + "'");
+                    s.executeUpdate("delete from pos.orders where oid = '" + oid + "'");
                     this.dispose();
+                    UpdateSuccessful us = new UpdateSuccessful();
                 }
             } catch (SQLException sqe) {
                 System.err.println("Unable to find record");
@@ -184,10 +173,10 @@ public class VoidFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_SubmitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CID;
+    private javax.swing.JTextField EID;
     private javax.swing.JPanel IFrame;
     private javax.swing.JButton Submit;
-    private javax.swing.JTextField TID;
+    private javax.swing.JTextField OID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -200,16 +189,7 @@ public class VoidFrame extends javax.swing.JFrame {
             return false;
         }
         for (int i = 0; i < eid.length(); i++) {
-            if (i == 0 && eid.charAt(i) == '-') {
-                if (eid.length() == 1) {
-                    return false;
-                } else {
-                    continue;
-                }
-            }
-            if (Character.digit(eid.charAt(i), 10) < 0) {
-                return false;
-            }
+            if (!Character.isDigit(eid.charAt(i)))  { return false; }
         }
         return true;
     }
