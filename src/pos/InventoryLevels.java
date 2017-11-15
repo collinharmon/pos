@@ -5,14 +5,11 @@
  */
 package pos;
 
-import java.awt.*;
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.*;
-import javax.swing.table.TableColumn;
+import javax.swing.JFrame;
 
 public class InventoryLevels extends javax.swing.JFrame {
 
