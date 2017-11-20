@@ -5,6 +5,8 @@
  */
 package pos;
 
+import java.awt.*;
+
 public class Login extends javax.swing.JFrame {
 
     OSys offlinesystem;    
@@ -67,12 +69,11 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 204));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         Password.setEditable(false);
         Password.setText("Password");
 
-        One.setBackground(new java.awt.Color(255, 204, 0));
         One.setText("1");
         One.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         One.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -172,6 +173,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        Enter.setBackground(new java.awt.Color(169, 255, 155));
         Enter.setText("Enter");
         Enter.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Enter.setPreferredSize(new java.awt.Dimension(75, 75));

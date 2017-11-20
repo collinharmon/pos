@@ -78,18 +78,18 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jLabel5.setText("<html> <body><b>Administrative Functions</b></body> </html>");
 
-        jButton11.setBackground(new java.awt.Color(255, 0, 0));
+        jButton11.setBackground(new java.awt.Color(255, 255, 204));
         jButton11.setText("Add Employee");
         jButton11.setPreferredSize(new java.awt.Dimension(133, 93));
 
-        jButton12.setBackground(new java.awt.Color(255, 0, 0));
+        jButton12.setBackground(new java.awt.Color(255, 255, 204));
         jButton12.setText("Add Employee");
 
-        jButton13.setBackground(new java.awt.Color(255, 0, 0));
+        jButton13.setBackground(new java.awt.Color(255, 255, 204));
         jButton13.setText("Add Employee");
         jButton13.setPreferredSize(new java.awt.Dimension(133, 93));
 
-        jButton14.setBackground(new java.awt.Color(255, 0, 0));
+        jButton14.setBackground(new java.awt.Color(255, 255, 204));
         jButton14.setText("Add Employee");
         jButton14.setPreferredSize(new java.awt.Dimension(133, 93));
 
@@ -143,20 +143,20 @@ public class AdminFrame extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 581, -1, -1));
 
-        jPanel3.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel3.setBackground(new java.awt.Color(180, 230, 255));
 
         WelcomeBanner.setText("Welcome SuperUser");
 
         WPSBanner.setText("                               WPS");
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel2.setBackground(new java.awt.Color(180, 230, 255));
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel2.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
 
-        EmployeeFunctions.setBackground(new java.awt.Color(0, 0, 255));
+        EmployeeFunctions.setBackground(new java.awt.Color(180, 230, 255));
         EmployeeFunctions.setBorder(javax.swing.BorderFactory.createTitledBorder("Employee Functions"));
 
-        AddEmployee.setBackground(new java.awt.Color(255, 0, 0));
+        AddEmployee.setBackground(new java.awt.Color(255, 255, 204));
         AddEmployee.setText("Add Employee");
         AddEmployee.setPreferredSize(new java.awt.Dimension(133, 93));
         AddEmployee.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +165,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        RemoveEmployee.setBackground(new java.awt.Color(255, 0, 0));
+        RemoveEmployee.setBackground(new java.awt.Color(255, 255, 204));
         RemoveEmployee.setText("Remove Employee");
         RemoveEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +173,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        EditPrivilege.setBackground(new java.awt.Color(255, 0, 0));
+        EditPrivilege.setBackground(new java.awt.Color(255, 255, 204));
         EditPrivilege.setText("Edit Privilege");
         EditPrivilege.setPreferredSize(new java.awt.Dimension(133, 93));
         EditPrivilege.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +182,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        ChangePassword.setBackground(new java.awt.Color(255, 0, 0));
+        ChangePassword.setBackground(new java.awt.Color(255, 255, 204));
         ChangePassword.setText("Change Password");
         ChangePassword.setPreferredSize(new java.awt.Dimension(133, 93));
         ChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -218,10 +218,10 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGap(22, 22, 22))
         );
 
-        AdministrativeFunctions.setBackground(new java.awt.Color(0, 0, 255));
+        AdministrativeFunctions.setBackground(new java.awt.Color(180, 230, 255));
         AdministrativeFunctions.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrative Functions"));
 
-        AddItem.setBackground(new java.awt.Color(255, 0, 0));
+        AddItem.setBackground(new java.awt.Color(255, 255, 204));
         AddItem.setText("Add Item");
         AddItem.setPreferredSize(new java.awt.Dimension(133, 93));
         AddItem.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +230,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        RemoveItem.setBackground(new java.awt.Color(255, 0, 0));
+        RemoveItem.setBackground(new java.awt.Color(255, 255, 204));
         RemoveItem.setText("Remove Item");
         RemoveItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +238,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        EditPrice.setBackground(new java.awt.Color(255, 0, 0));
+        EditPrice.setBackground(new java.awt.Color(255, 255, 204));
         EditPrice.setText("Edit Price");
         EditPrice.setPreferredSize(new java.awt.Dimension(133, 93));
         EditPrice.addActionListener(new java.awt.event.ActionListener() {
@@ -247,7 +247,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        InventoryLevels.setBackground(new java.awt.Color(255, 0, 0));
+        InventoryLevels.setBackground(new java.awt.Color(255, 255, 204));
         InventoryLevels.setText("Inventory Levels");
         InventoryLevels.setPreferredSize(new java.awt.Dimension(133, 93));
         InventoryLevels.addActionListener(new java.awt.event.ActionListener() {
@@ -283,10 +283,10 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        SaleFunctions.setBackground(new java.awt.Color(0, 0, 255));
+        SaleFunctions.setBackground(new java.awt.Color(180, 230, 255));
         SaleFunctions.setBorder(javax.swing.BorderFactory.createTitledBorder("Sale Functions"));
 
-        SalesLevels.setBackground(new java.awt.Color(255, 0, 0));
+        SalesLevels.setBackground(new java.awt.Color(255, 255, 204));
         SalesLevels.setText("Sales Levels");
         SalesLevels.setPreferredSize(new java.awt.Dimension(133, 93));
         SalesLevels.addActionListener(new java.awt.event.ActionListener() {
@@ -295,7 +295,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        UserScreen.setBackground(new java.awt.Color(255, 0, 0));
+        UserScreen.setBackground(new java.awt.Color(255, 255, 204));
         UserScreen.setText("User Screen");
         UserScreen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +303,7 @@ public class AdminFrame extends javax.swing.JFrame {
             }
         });
 
-        VoidTransaction.setBackground(new java.awt.Color(255, 0, 0));
+        VoidTransaction.setBackground(new java.awt.Color(255, 255, 204));
         VoidTransaction.setText("Void Transaction");
         VoidTransaction.setPreferredSize(new java.awt.Dimension(133, 93));
         VoidTransaction.addActionListener(new java.awt.event.ActionListener() {
