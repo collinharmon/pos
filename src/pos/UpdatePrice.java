@@ -55,7 +55,7 @@ public class UpdatePrice extends javax.swing.JFrame {
         ItemInformation.setBackground(new java.awt.Color(180, 230, 255));
         ItemInformation.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Information"));
 
-        jLabel3.setText("Item ID");
+        jLabel3.setText("Item SKU");
 
         jLabel4.setText("New Price");
 
