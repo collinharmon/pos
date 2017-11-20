@@ -37,7 +37,7 @@ public class InventoryLevels extends javax.swing.JFrame {
         String name = Name.getText();
         String platform = Platform.getText();
         if (sku.isEmpty() && name.isEmpty() && platform.isEmpty())   {
-            System.out.println("sku:" + sku + " name:" + name + " platform:" + platform);
+            //System.out.println("sku:" + sku + " name:" + name + " platform:" + platform);
             return;
         }
         boolean prev = false;
@@ -82,11 +82,10 @@ public class InventoryLevels extends javax.swing.JFrame {
             Statement s7 = con.createStatement();
             ResultSet result;
             if (query == null || query == "")   {
-                System.out.println("first load");
                 result = s7.executeQuery("select * from pos.games order by sku");
             }
             else {
-                System.out.println("select * from pos.games " + query + " order by sku");
+                //System.out.println("select * from pos.games " + query + " order by sku");
                 result = s7.executeQuery("select * from pos.games " + query + " order by sku");
             }
             for (int i = 0; result.next(); i++) {
