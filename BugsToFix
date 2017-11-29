@@ -1,0 +1,29 @@
+In Employee Screen: If user without man privilege presses the cancel button it grants him access to manager screen.
+This will allow him to perform all manager functions.
+
+In Manager Screen
+
+Add Employee:
+If all fields are empty and user hits submit the JFrame (EmployeeInfo.java) closes with no error message.
+No submission in database occurs.
+If hourly wage is above a certain value no insertion into the database occurs and there isn't an error message.
+Password entry doesn't verify if the input is an integer (since users can only enter passwords with dialpad (0-9)).
+
+Add Item:
+No helpful error messages for empty/incorrect inputs for quantity and release dates.
+Allows duplicate entries (i.e. if a game already exists you can add the game again creating a separate entry
+into the database. (Not sure if this would be considered an error. An argument could be made for duplicate entries).
+
+Remove Item:
+"Invalid input: Item ID must be a 5 digit number" --> 8 digit.
+Correct sku but incorrect Item Name claims the removal was successful but fails.
+
+Edit Price:
+If correct SKU but the new price isn't an integer the error messsage states ID (SKU) must be 8 digits.
+No error message for super large prices. No modification to the database occurs and nothing happens.
+
+Inventory Levels:
+Search function doesn't work (but is this for a future feature to be added?)
+
+Void Transaction:
+If order ID exists but EID is incorrect it says "No such order exists" change to "No such order/eid pair exists"
