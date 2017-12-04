@@ -138,7 +138,7 @@ public class OSale {
                 }*/
                 bwriter.write("insert into pos.order_items values(" + temp.quant + ", " + temp.current.getPrice() + ", " + 0 + ", (select oid from pos.orders order by oid desc limit 1), " + temp.current.getID() + ")");
                 bwriter.newLine();
-                bwriter.write("update pos.games set quantity = quantity - 1 where sku = " + temp.current.getID() + "");
+                bwriter.write("update pos.games set quantity = quantity - " + temp.quant + " where sku = " + temp.current.getID() + "");
                 bwriter.newLine();
                 temp = temp.next;
             }
