@@ -142,8 +142,6 @@ public class OSale {
                 bwriter.newLine();
                 temp = temp.next;
             }
-            bwriter.write("insert into pos.orders (eid, total) values(" + 0 + ", " + getTotal() + ")");
-            bwriter.newLine();
             bwriter.close();
         } catch (IOException e) {
             System.err.println(e.getMessage());
