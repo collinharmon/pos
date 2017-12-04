@@ -111,10 +111,6 @@ public class OSale {
                 bwriter.write(old.get(i));
                 bwriter.newLine();
             }
-            bwriter.write("insert into CUSTOMER values('" + cid + "', 'Guest', '" + ccn + "')");
-            bwriter.newLine();
-            bwriter.write("insert into CONDUCTS values('" + cid + "', '" + tid + "')");
-            bwriter.newLine();
             ONode temp = l.head;
             while (temp != null) {
                 int num = 0;
@@ -125,11 +121,13 @@ public class OSale {
                     bwriter.write("insert into RETTRANSACTION values ('" + retid + "', SYSDATE+30)");
                     bwriter.newLine();
                 }
-                bwriter.write("insert into CONTAINS values('" + temp.current.getID() + "', '" + tid + "', '" + temp.quant + "', '" + num + "')");
+                bwriter.write("insert into order_items values(" + temp.quant + ", " + temp.current.getPrice() + ", " + 0 + "," + tid + ", " + temp.current.getID() + ")");
+                bwriter.newLine();
+                bwriter.write("update pos.games set quantity = quantity - 1 where sku = " + temp.current.getID() + "");
                 bwriter.newLine();
                 temp = temp.next;
             }
-            bwriter.write("insert into TRANSACTION values('" + tid + "', SYSDATE, " + getSubtotal() + ", " + getTax() + ", " + getTotal() + ")");
+            bwriter.write("insert into orders values(" + tid + ", " + 0 + ", SYSDATE," + getTax() + ", " + getTotal() + ")");
             bwriter.newLine();
             bwriter.close();
         } catch (IOException e) {
