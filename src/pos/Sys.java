@@ -185,23 +185,5 @@ public class Sys {
                 System.err.println("SQL Problems: " + ex.getMessage());
             }
         }
-        try {
-            Statement q = con.createStatement();
-            ResultSet result = q.executeQuery("select mtid from dual");
-            result.next();
-            File f = new File("peripherals.txt");
-            if (!f.exists()) {
-                f.createNewFile();
-            }
-            FileWriter fw = new FileWriter(f);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(result.getNString(1));
-            bw.newLine();
-            bw.close();
-        } catch (SQLException sqe) {
-            System.err.println("SQL BADNESS");
-        } catch (IOException ex) {
-            System.err.println("I/O BADNESS");
-        }
     }
 }

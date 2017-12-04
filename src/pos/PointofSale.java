@@ -23,7 +23,7 @@ public class PointofSale {
         Class.forName("com.mysql.jdbc.Driver");
         try {
             //the below getConnection is left blank to maintain security and privacy.  Normally, the method would have parameters.
-            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=pos_team", "pos_team", "");
+            con = DriverManager.getConnection("jdbc:mysql://thedbs.cxqavhggxnny.us-west-1.rds.amazonaws.com:3306/?user=pos_team", "pos_team", "Password");
             /*(Statement s2 = con.createStatement();
             ResultSet result2 = s2.executeQuery("select * from pos.game");
             while(result2.next()) System.out.println(result2.getNString(1));*/
@@ -56,7 +56,7 @@ public class PointofSale {
     }
 
     public static void doWork() {
-        //system.updateDatabase();
+        system.updateDatabase();
         SysFrame sf = new SysFrame(con, system);
         isLoggedIn = true;
     }
@@ -66,7 +66,7 @@ public class PointofSale {
     }
 
     static void doAdminWork() {
-        //system.updateDatabase();
+        system.updateDatabase();
         AdminFrame af = new AdminFrame(con, system);
         isLoggedIn = true;
     }

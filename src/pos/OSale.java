@@ -5,14 +5,7 @@
  */
 package pos;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,6 +29,26 @@ public class OSale {
         this.ps = ps;
         items = new ArrayList<OItem>();
         fillOItems();
+    }
+
+    public void setItems()  {
+        File file = new File("games.txt");
+        try {
+            FileInputStream fstream = new FileInputStream(file);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fstream));
+            LineNumberReader count = new LineNumberReader(in);
+            while (count.skip(Long.MAX_VALUE) > 0)  {}
+            int result = count.getLineNumber() + 1;
+            String line;
+            String[] info;
+            for (int i = 0; i <= result; i++) {
+                line = in.readLine();
+                info = line.split("=");
+                items.add(new OItem(Integer.parseInt(info[1]), new Money(Double.parseDouble(info[2]))));
+            }
+        } catch (IOException e) {
+            System.err.println("File input error\n" + e.getMessage());
+        }
     }
 
     //This function adds the Item to the class
@@ -112,47 +125,28 @@ public class OSale {
                 bwriter.newLine();
             }
             ONode temp = l.head;
+            bwriter.write("insert into pos.orders (eid, total) values(" + 0 + ", " + getTotal() + ")");
+            bwriter.newLine();
             while (temp != null) {
-                int num = 0;
+                /*int num = 0; rentals not currently supported
                 if (temp.rental) {
                     num = 1;
                     retid = tid;
                     retid = retid.concat("010");
                     bwriter.write("insert into RETTRANSACTION values ('" + retid + "', SYSDATE+30)");
                     bwriter.newLine();
-                }
-                bwriter.write("insert into order_items values(" + temp.quant + ", " + temp.current.getPrice() + ", " + 0 + "," + tid + ", " + temp.current.getID() + ")");
+                }*/
+                bwriter.write("insert into pos.order_items values(" + temp.quant + ", " + temp.current.getPrice() + ", " + 0 + ", (select oid from pos.orders order by oid desc limit 1), " + temp.current.getID() + ")");
                 bwriter.newLine();
                 bwriter.write("update pos.games set quantity = quantity - 1 where sku = " + temp.current.getID() + "");
                 bwriter.newLine();
                 temp = temp.next;
             }
-            bwriter.write("insert into orders values(" + tid + ", " + 0 + ", SYSDATE," + getTax() + ", " + getTotal() + ")");
+            bwriter.write("insert into pos.orders (eid, total) values(" + 0 + ", " + getTotal() + ")");
             bwriter.newLine();
             bwriter.close();
         } catch (IOException e) {
             System.err.println(e.getMessage());
-        }
-        file = new File("peripherals.txt");
-        file.delete();
-        file = new File("peripherals.txt");
-        try {
-            file.createNewFile();
-            FileWriter writer = new FileWriter(file);
-            BufferedWriter bwriter = new BufferedWriter(writer);
-            tid = Integer.toString(Integer.parseInt(tid) - 1);
-            bwriter.write(tid);
-            bwriter.newLine();
-            bwriter.close();
-        } catch (IOException ex) {
-            Logger.getLogger(OSale.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (retid != null) {
-            Calendar c = new GregorianCalendar();
-            c.add(Calendar.DATE, 30);
-            java.util.Date d = c.getTime();
-            System.out.println("Your RETURN ID: " + retid + ".\nItems are due back on: " + d.getDate() + "-" + (d.getMonth() + 1) + "-15");
         }
     }
 
@@ -337,7 +331,7 @@ public class OSale {
     }
 
     public void fillOItems() {
-        File file = new File("items.txt");
+        File file = new File("games.txt");
         try {
             FileInputStream fstream = new FileInputStream(file);
             BufferedReader in = new BufferedReader(new InputStreamReader(fstream));
@@ -345,7 +339,7 @@ public class OSale {
             while (in.ready()) {
                 line = in.readLine();
                 String[] a;
-                a = line.split("\t");
+                a = line.split("=");
                 items.add(new OItem(Integer.parseInt(a[0]), new Money(Double.parseDouble(a[1]))));
             }
         } catch (IOException e) {
