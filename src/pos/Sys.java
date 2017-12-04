@@ -74,6 +74,28 @@ public class Sys {
     }
 
     public void logout() {
+        // saves games sku and price to text file
+        try {
+            Statement st = con.createStatement();
+            ResultSet result = st.executeQuery("select sku, price from pos.games order by sku");
+            File file = new File("games.txt");
+            try {
+                String sku;
+                FileWriter writer = new FileWriter(file);
+                BufferedWriter bwriter = new BufferedWriter(writer);
+                while (result.next()) {
+                    //result.next();
+                    sku = String.format("%08d", result.getInt(1));
+                    bwriter.write(sku + "=" + result.getDouble(2));
+                    bwriter.newLine();
+                }
+                bwriter.close();
+            } catch (IOException e) {
+                System.err.println("File input error: " + e.getMessage());
+            }
+        } catch (SQLException e)    {
+            System.err.println("Unable to create database text file." + e.getMessage());
+        }
         try {
             Statement st = con.createStatement();
             st.executeUpdate("update pos.employees set islogin = 0 where eid = '" + eid + "'");
