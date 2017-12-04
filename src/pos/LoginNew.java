@@ -81,6 +81,7 @@ public class LoginNew extends javax.swing.JFrame {
         Password.setEditable(false);
         Password.setText("Password");
 
+        Two.setBackground(new java.awt.Color(237, 255, 253));
         One.setText("1");
         One.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         One.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -90,7 +91,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Two.setBackground(new java.awt.Color(255, 255, 204));
+        Two.setBackground(new java.awt.Color(237, 255, 253));
         Two.setText("2");
         Two.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Two.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -100,7 +101,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Three.setBackground(new java.awt.Color(255, 255, 204));
+        Three.setBackground(new java.awt.Color(240, 255, 246));
         Three.setText("3");
         Three.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Three.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -110,7 +111,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Four.setBackground(new java.awt.Color(255, 255, 204));
+        Four.setBackground(new java.awt.Color(240, 255, 246));
         Four.setText("4");
         Four.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Four.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -120,7 +121,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Five.setBackground(new java.awt.Color(255, 255, 204));
+        Five.setBackground(new java.awt.Color(240, 255, 246));
         Five.setText("5");
         Five.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Five.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -130,7 +131,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Six.setBackground(new java.awt.Color(255, 255, 204));
+        Six.setBackground(new java.awt.Color(240, 255, 246));
         Six.setText("6");
         Six.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Six.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -140,7 +141,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Seven.setBackground(new java.awt.Color(255, 255, 204));
+        Seven.setBackground(new java.awt.Color(240, 255, 246));
         Seven.setText("7");
         Seven.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Seven.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -150,7 +151,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Eight.setBackground(new java.awt.Color(255, 255, 204));
+        Eight.setBackground(new java.awt.Color(240, 255, 246));
         Eight.setText("8");
         Eight.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Eight.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -160,7 +161,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Nine.setBackground(new java.awt.Color(255, 255, 204));
+        Nine.setBackground(new java.awt.Color(240, 255, 246));
         Nine.setText("9");
         Nine.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Nine.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -170,7 +171,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Clear.setBackground(new java.awt.Color(255, 255, 204));
+        Clear.setBackground(new java.awt.Color(240, 255, 246));
         Clear.setText("Clear");
         Clear.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Clear.setPreferredSize(new java.awt.Dimension(75, 75));
@@ -180,7 +181,7 @@ public class LoginNew extends javax.swing.JFrame {
             }
         });
 
-        Zero.setBackground(new java.awt.Color(255, 255, 204));
+        Zero.setBackground(new java.awt.Color(240, 255, 246));
         Zero.setText("0");
         Zero.setBounds(new java.awt.Rectangle(30, 100, 75, 75));
         Zero.setPreferredSize(new java.awt.Dimension(75, 75));
