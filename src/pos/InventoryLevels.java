@@ -125,7 +125,7 @@ public class InventoryLevels extends javax.swing.JFrame {
 
         filter = new javax.swing.JPanel();
         SL = new javax.swing.JLabel();
-        Search = new javax.swing.JButton();
+        //Search = new javax.swing.JButton();
         ISL = new javax.swing.JLabel();
         //SKU = new javax.swing.JTextField();
         SKU = RowFilerUtil.createRowFilter(InvTable, 0);
@@ -166,13 +166,6 @@ public class InventoryLevels extends javax.swing.JFrame {
         INL.setText("Name: ");
 
         IPL.setText("Platform: ");
-
-        Search.setText("Search");
-        Search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Search(evt);
-            }
-        });
 
         jScrollPane1.setViewportView(InvTable);
 
@@ -215,8 +208,7 @@ public class InventoryLevels extends javax.swing.JFrame {
                     .addComponent(INL)
                     .addComponent(Name)
                     .addComponent(IPL)
-                    .addComponent(Platform)
-                    .addComponent(Search))
+                    .addComponent(Platform))
                 .addGap(0,0, Short.MAX_VALUE)
         );
         filterLayout.setVerticalGroup(
@@ -229,8 +221,7 @@ public class InventoryLevels extends javax.swing.JFrame {
                         .addComponent(INL)
                         .addComponent(Name)
                         .addComponent(IPL)
-                        .addComponent(Platform)
-                        .addComponent(Search))
+                        .addComponent(Platform))
                     .addGap(0, 0, Short.MAX_VALUE))
         );
 
