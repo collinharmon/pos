@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;;
 
 public class InventoryLevels extends javax.swing.JFrame {
 
@@ -124,6 +123,7 @@ public class InventoryLevels extends javax.swing.JFrame {
         InvTable = new javax.swing.JTable(data, columnNames);
         // Sets Name column to be 300px wide
         InvTable.getColumnModel().getColumn(1).setPreferredWidth(300);
+        InvTable.setAutoCreateRowSorter(true);
 
         filter = new javax.swing.JPanel();
         SL = new javax.swing.JLabel();
