@@ -148,7 +148,7 @@ public class RemoveOldItem extends javax.swing.JFrame {
         if (name.equals("") || iid.equals("")) {
             IID.setText("Invalid input: Fields cannot be null");
         } else if (!checkString(iid)) {
-            IID.setText("Invalid input: Item ID must be a 5 digit number");
+            IID.setText("Invalid input: Item ID must be a 8 digit number");
         }
         else{
             try{

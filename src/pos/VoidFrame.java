@@ -157,7 +157,7 @@ public class VoidFrame extends javax.swing.JFrame {
                 Statement s = con.createStatement();
                 ResultSet result = s.executeQuery("select * from pos.orders where oid = '" + oid + "' and eid = '" + eid + "'");
                 if (!result.next()) {
-                    OID.setText("No such order");
+                    OID.setText("No such order/employee ID pair exists");
                     EID.setText("");
                 } else {
                     s.executeUpdate("delete from pos.order_items where oid = '" + oid + "'");
