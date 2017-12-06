@@ -47,7 +47,7 @@ public class ManagerLogin extends JFrame {
 
         setAlwaysOnTop(true);
 
-        jPanel1.setBackground(new java.awt.Color(51, 150, 51));
+        jPanel1.setBackground(new java.awt.Color(169, 255, 155));
 
         jLabel2.setText("Enter Manager Login");
 
@@ -155,8 +155,3 @@ public class ManagerLogin extends JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
-
-
-
-
-

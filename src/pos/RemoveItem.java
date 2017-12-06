@@ -58,7 +58,7 @@ public class RemoveItem extends javax.swing.JFrame {
         setTitle("RemoveItem");
         setAlwaysOnTop(true);
 
-        jPanel1.setBackground(new java.awt.Color(234, 216, 249));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         ItemID.setColumns(1);
 

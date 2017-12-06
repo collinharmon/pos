@@ -60,7 +60,7 @@ public class EditItemPrice extends JFrame {
         //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
 
-        jPanel1.setBackground(new java.awt.Color(51, 51, 255));
+        jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
         jLabel2.setText("Input New Price");
 
@@ -183,10 +183,4 @@ public class EditItemPrice extends JFrame {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-
 }
-
-
-
-
-

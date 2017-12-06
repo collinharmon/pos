@@ -60,7 +60,7 @@ public class ReturnItem extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(200, 215, 250));
+        setBackground(new java.awt.Color(180, 230, 255));
 
         jPanel2.setBackground(new java.awt.Color(179, 230, 255));
 
