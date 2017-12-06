@@ -5,8 +5,6 @@
  */
 package pos;
 
-import java.awt.event.WindowEvent;
-import java.rmi.Naming;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -129,11 +127,14 @@ public class InventoryLevels extends javax.swing.JFrame {
         SL = new javax.swing.JLabel();
         Search = new javax.swing.JButton();
         ISL = new javax.swing.JLabel();
-        SKU = new javax.swing.JTextField();
+        //SKU = new javax.swing.JTextField();
+        SKU = RowFilerUtil.createRowFilter(InvTable, 0);
         INL = new javax.swing.JLabel();
-        Name = new javax.swing.JTextField();
+        //Name = new javax.swing.JTextField();
+        Name = RowFilerUtil.createRowFilter(InvTable, 1);
         IPL = new javax.swing.JLabel();
-        Platform = new javax.swing.JTextField();
+        //Platform = new javax.swing.JTextField();
+        Platform = RowFilerUtil.createRowFilter(InvTable, 2);
 
         jInternalFrame1.setVisible(true);
 
