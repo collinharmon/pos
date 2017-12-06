@@ -5,11 +5,16 @@
  */
 package pos;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import java.util.List;
 
 public class InventoryLevels extends javax.swing.JFrame {
 
@@ -21,86 +26,67 @@ public class InventoryLevels extends javax.swing.JFrame {
      * @param con
      */
     public InventoryLevels(Connection con) {
-        this.con = con;
-        Query(null);
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    }
+            this.con = con;
+            int pnum = 0;
+            String sku;
+            try {
+                Statement s1 = con.createStatement();
+                ResultSet result1 = s1.executeQuery("select count(*) from pos.games");
+                result1.next();
+                pnum = result1.getInt(1);
+            } catch (SQLException sqe) {
+                System.err.println("Error fetching COUNT from games.");
+            }
+            data = new String[pnum][];
+            for (int i = 0; i < pnum; i++) {
+                data[i] = new String[7];
+            }
+            try {
+                Statement s7 = con.createStatement();
+                ResultSet result = s7.executeQuery("select * from pos.games order by sku");
+                for (int i = 0; result.next(); i++) {
+                    data[i][0] = String.valueOf(result.getInt(7));  //sku
+                    data[i][1] = result.getString(1);   //name
+                    data[i][2] = result.getString(2);   //platform
+                    data[i][3] = String.valueOf(result.getInt(3));  //quantity
+                    data[i][4] = String.valueOf(result.getDouble(4));   //price
+                    data[i][5] = String.valueOf(result.getDate(5)); //release date
+                    data[i][6] = result.getString(6);   //esrb
+                    sku = String.format("%08d", Integer.parseInt(data[i][0]));  //zerofill sku
+                    data[i][0] = sku;
+                }
+            } catch (SQLException sqe) {
+                System.err.println("Error fetching ALL data from dual.");
+                System.err.println(sqe.getMessage());
+            }
+            initComponents();
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
 
-    private void Search(java.awt.event.ActionEvent evt) {
+
+    private void Search(ActionEvent e)  {
+        //TableRowSorter<? extends TableModel> rowSorter = (InvTable.getRowSorter() instanceof TableRowSorter) ? (TableRowSorter<? extends TableModel>) InvTable.getRowSorter() : null;
+
         String sku = SKU.getText();
         String name = Name.getText();
         String platform = Platform.getText();
-        if (sku.isEmpty() && name.isEmpty() && platform.isEmpty())   {
-            //System.out.println("sku:" + sku + " name:" + name + " platform:" + platform);
-            return;
-        }
-        boolean prev = false;
+        List<RowFilter<Object, Object>> filters = new ArrayList<>(3);
         if (!sku.isEmpty()) {
-            sku = " sku = " + sku;
-            prev = true;
+            filters.add(RowFilter.regexFilter("(?i)" + sku, 0));
         }
         if (!name.isEmpty())    {
-            name = " name like '%" + name + "%'";
-            if (prev) { name = " and" + name; }
-            else    { prev = true; }
+            filters.add(RowFilter.regexFilter("(?i)" + name, 1));
         }
         if (!platform.isEmpty())    {
-            platform = " platform = '" + platform + "'";
-            if (prev)   { platform = " and" + platform; }
+            filters.add(RowFilter.regexFilter("(?i)" + platform, 2));
         }
-        String query = "where" + sku + name + platform;
-        Query(query);
-        this.dispose();
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        RowFilter rf = RowFilter.andFilter(filters);
+        rowSorter.setRowFilter(rf);
+        return;
     }
 
-    public void Query(String query)    {
-        String sku;
-        int pnum = 0;
-        try {
-            Statement s1 = con.createStatement();
-            ResultSet result1 = s1.executeQuery("select count(*) from pos.games");
-            result1.next();
-            pnum = result1.getInt(1);
-        } catch (SQLException sqe) {
-            System.err.println("Error fetching COUNT from games.");
-        }
-        data = new String[pnum][];
-        for (int i = 0; i < pnum; i++) {
-            data[i] = new String[7];
-        }
-        try {
-            Statement s7 = con.createStatement();
-            ResultSet result;
-            if (query == null || query == "")   {
-                result = s7.executeQuery("select * from pos.games order by sku");
-            }
-            else {
-                //System.out.println("select * from pos.games " + query + " order by sku");
-                result = s7.executeQuery("select * from pos.games " + query + " order by sku");
-            }
-            for (int i = 0; result.next(); i++) {
-                data[i][0] = String.valueOf(result.getInt(7));  //sku
-                data[i][1] = result.getString(1);   //name
-                data[i][2] = result.getString(2);   //platform
-                data[i][3] = String.valueOf(result.getInt(3));  //quantity
-                data[i][4] = String.valueOf(result.getDouble(4));   //price
-                data[i][5] = String.valueOf(result.getDate(5)); //release date
-                data[i][6] = result.getString(6);   //esrb
-                sku = String.format("%08d", Integer.parseInt(data[i][0]));  //zerofill sku
-                data[i][0] = sku;
-            }
-        } catch (SQLException sqe) {
-            System.err.println("Error fetching ALL data from dual.");
-            System.err.println(sqe.getMessage());
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,19 +108,17 @@ public class InventoryLevels extends javax.swing.JFrame {
         // Sets Name column to be 300px wide
         InvTable.getColumnModel().getColumn(1).setPreferredWidth(300);
         InvTable.setAutoCreateRowSorter(true);
+        rowSorter = new TableRowSorter<>(InvTable.getModel());
+        InvTable.setRowSorter(rowSorter);
 
         filter = new javax.swing.JPanel();
-        SL = new javax.swing.JLabel();
-        //Search = new javax.swing.JButton();
+        Search = new javax.swing.JButton();
         ISL = new javax.swing.JLabel();
-        //SKU = new javax.swing.JTextField();
-        SKU = RowFilerUtil.createRowFilter(InvTable, 0);
+        SKU = new javax.swing.JTextField();
         INL = new javax.swing.JLabel();
-        //Name = new javax.swing.JTextField();
-        Name = RowFilerUtil.createRowFilter(InvTable, 1);
+        Name = new javax.swing.JTextField();
         IPL = new javax.swing.JLabel();
-        //Platform = new javax.swing.JTextField();
-        Platform = RowFilerUtil.createRowFilter(InvTable, 2);
+        Platform = new javax.swing.JTextField();
 
         jInternalFrame1.setVisible(true);
 
@@ -166,6 +150,13 @@ public class InventoryLevels extends javax.swing.JFrame {
         INL.setText("Name: ");
 
         IPL.setText("Platform: ");
+
+        Search.setText("Search");
+        Search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(InvTable);
 
@@ -208,7 +199,8 @@ public class InventoryLevels extends javax.swing.JFrame {
                     .addComponent(INL)
                     .addComponent(Name)
                     .addComponent(IPL)
-                    .addComponent(Platform))
+                    .addComponent(Platform)
+                    .addComponent(Search))
                 .addGap(0,0, Short.MAX_VALUE)
         );
         filterLayout.setVerticalGroup(
@@ -221,7 +213,8 @@ public class InventoryLevels extends javax.swing.JFrame {
                         .addComponent(INL)
                         .addComponent(Name)
                         .addComponent(IPL)
-                        .addComponent(Platform))
+                        .addComponent(Platform)
+                        .addComponent(Search))
                     .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -289,7 +282,6 @@ public class InventoryLevels extends javax.swing.JFrame {
     private String[][] data;
     //filter results
     private javax.swing.JPanel filter;
-    private javax.swing.JLabel SL;
     private javax.swing.JButton Search;
     private javax.swing.JLabel ISL;
     private javax.swing.JTextField SKU;
@@ -297,6 +289,7 @@ public class InventoryLevels extends javax.swing.JFrame {
     private javax.swing.JTextField Name;
     private  javax.swing.JLabel IPL;
     private javax.swing.JTextField Platform;
+    private TableRowSorter<TableModel> rowSorter;
     //TODO add price and quantity w/ >, <, =, dropdowns
 
     // End of variables declaration//GEN-END:variables
