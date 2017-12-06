@@ -5,11 +5,16 @@
  */
 package pos;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 public class SalesFrame extends javax.swing.JFrame {
 
@@ -51,6 +56,24 @@ public class SalesFrame extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
+    private void Search(ActionEvent e)  {
+        String order = OrderID.getText();
+        String emp = EmpID.getText();
+        String date = Date.getText();
+        List<RowFilter<Object, Object>> filters = new ArrayList<>(3);
+        if (!order.isEmpty()) {
+            filters.add(RowFilter.regexFilter("(?i)" + order, 0));
+        }
+        if (!emp.isEmpty())    {
+            filters.add(RowFilter.regexFilter("(?i)" + emp, 1));
+        }
+        if (!date.isEmpty())    {
+            filters.add(RowFilter.regexFilter("(?i)" + date, 2));
+        }
+        RowFilter rf = RowFilter.andFilter(filters);
+        rowSorter.setRowFilter(rf);
+        return;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,6 +91,18 @@ public class SalesFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         SalesTable = new javax.swing.JTable(sales, columnNames);
         Done = new javax.swing.JButton();
+        SalesTable.setAutoCreateRowSorter(true);
+        rowSorter = new TableRowSorter<>(SalesTable.getModel());
+        SalesTable.setRowSorter(rowSorter);
+
+        filter = new javax.swing.JPanel();
+        Search = new javax.swing.JButton();
+        IOL = new javax.swing.JLabel();
+        OrderID = new javax.swing.JTextField();
+        IEL = new javax.swing.JLabel();
+        EmpID = new javax.swing.JTextField();
+        IDL = new javax.swing.JLabel();
+        Date = new javax.swing.JTextField();
 
         jInternalFrame1.setVisible(true);
 
@@ -92,6 +127,20 @@ public class SalesFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(180, 230, 255));
 
+        filter.setBackground(new java.awt.Color(180,230,255));
+
+        IOL.setText("Order ID: ");
+
+        IEL.setText("Employee ID: ");
+
+        IDL.setText("Date: ");
+
+        Search.setText("Search");
+        Search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Search(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(SalesTable);
 
@@ -122,6 +171,35 @@ public class SalesFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Done))
         );
+        javax.swing.GroupLayout filterLayout = new javax.swing.GroupLayout(filter);
+        filter.setLayout(filterLayout);
+        filterLayout.setHorizontalGroup(
+                filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(filterLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(IOL)
+                                .addComponent(OrderID)
+                                .addComponent(IEL)
+                                .addComponent(EmpID)
+                                .addComponent(IDL)
+                                .addComponent(Date)
+                                .addComponent(Search))
+                        .addGap(0,0, Short.MAX_VALUE)
+        );
+        filterLayout.setVerticalGroup(
+                filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(filterLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(filterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(IOL)
+                                        .addComponent(OrderID)
+                                        .addComponent(IEL)
+                                        .addComponent(EmpID)
+                                        .addComponent(IDL)
+                                        .addComponent(Date)
+                                        .addComponent(Search))
+                                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -133,6 +211,9 @@ public class SalesFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(9, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -146,6 +227,8 @@ public class SalesFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(filter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -180,5 +263,15 @@ public class SalesFrame extends javax.swing.JFrame {
     private javax.swing.JTable SalesTable;
     private String sales[][];
     private String columnNames[] = {"Order ID", "Employee ID", "Date", "Tax Rate", "Total"};
+    // filter results
+    private javax.swing.JPanel filter;
+    private javax.swing.JButton Search;
+    private javax.swing.JLabel IOL;
+    private javax.swing.JTextField OrderID;
+    private javax.swing.JLabel IEL;
+    private javax.swing.JTextField EmpID;
+    private  javax.swing.JLabel IDL;
+    private javax.swing.JTextField Date;
+    private TableRowSorter<TableModel> rowSorter;
     // End of variables declaration//GEN-END:variables
 }
