@@ -1,6 +1,3 @@
-In Employee Screen: If user without man privilege presses the cancel button it grants him access to manager screen.
-This will allow him to perform all manager functions.
-
 In Manager Screen
 
 Add Employee:

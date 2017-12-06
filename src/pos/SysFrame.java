@@ -33,6 +33,9 @@ public class SysFrame extends javax.swing.JFrame {
         this.con = con;
         this.system = system;
         initComponents();
+        if (!PointofSale.system.isManager)  {
+            Exit.setVisible(false);
+        }
         this.setLocationRelativeTo(null);
         ps = new PrintStream(new COS(jTextArea1));
         System.setOut(ps);
